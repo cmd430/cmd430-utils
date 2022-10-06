@@ -18,8 +18,12 @@ function isArray (obj) {
   return isType('Array', obj)
 }
 
+function isString (obj) {
+  return isType('String', obj)
+}
+
 function isWhat (obj) {
   return Object.prototype.toString.call(obj).match(/\[object (?<type>\w+)\]/).groups.type
 }
 
-module.exports = { wait, isType, isObject, isArray, isWhat }
+module.exports = { wait, isType, isObject, isArray, isString, isWhat }
