@@ -1,4 +1,5 @@
-const { logging: { Log, colors: { random } }, misc: { isWhat } } = require('./')
+const { Log, colors: { random } } = require('./logging')
+const { isWhat } = require('./misc')
 
 const { log, info, warn, error, debug } = new Log() // Can optionally give the log a tag by passing a string to the constructor
 const { log: taggedLog, info: taggedInfo, warn: taggedWarn, error: taggedError, debug: taggedDebug } = new Log('Tagged')
