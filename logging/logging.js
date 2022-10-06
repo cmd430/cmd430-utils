@@ -14,7 +14,7 @@ class Log {
 
   #Log = Log
   #tag
-  #tagDevTagOnly
+  #tagDevOnly
   #colors
 
   /**
@@ -37,14 +37,14 @@ class Log {
       if (isString(tagOpts.tag)) this.#tag = tagOpts.tag?.trim()
       if (isObject(tagOpts.tag)) {
         this.#tag = tagOpts.tag?.text?.trim()
-        this.#tagDevTagOnly = tagOpts.tag?.devOnly ?? false
+        this.#tagDevOnly = tagOpts.tag?.devOnly ?? false
       }
       this.#colors = tagOpts.colors ?? true
     }
     if (this.#tag && this.#tag.length + 2 > Log.#maxTagLength) Log.#maxTagLength = this.#tag.length + 2
   }
 
-  #logTag () { if (this.#tagDevTagOnly === false || isDevEnv()) return this.#tag ? grey(paddedTag(`[${this.#tag}]`, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength) }
+  #logTag () { if (this.#tagDevOnly === false || isDevEnv()) return this.#tag ? grey(paddedTag(`[${this.#tag}]`, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength) }
   #msg (type, color, ...args) {
     return console[type](...filterMessage([
       timestamp(),
