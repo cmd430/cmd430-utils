@@ -7,7 +7,7 @@ import { isString, isObject } from './misc.js'
 const timestamp = () => grey(`[${currentTimestamp()}]`)
 const filterMessage = args => args.filter(a => a)
 const paddedTag = (tag, length = 7) => tag.padEnd(length)
-const isDevEnv = () => process.env.NODE_ENV?.startsWith('prod') ?? false === false
+const isDevEnv = () => (process.env.NODE_ENV?.startsWith('prod') ?? false) === false
 
 export class Log {
 
