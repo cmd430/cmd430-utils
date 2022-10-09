@@ -1,3 +1,6 @@
-(function () {
-  throw new Error('please require \'cmd430-utils/logging\' or \'cmd430-utils/misc\' (or both if needed)')
-}())
+import { Log } from './log.js'
+import * as colors from './colors.js'
+import * as formatting from './formatting.js'
+import * as misc from './misc.js'
+
+export { Log, colors, formatting, misc }

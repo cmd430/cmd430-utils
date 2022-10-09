@@ -1,6 +1,6 @@
 const { locale } = (() => Intl.DateTimeFormat().resolvedOptions())()
 
-module.exports = () => new Date().toLocaleString(locale, {
+export const timestamp = () => new Date().toLocaleString(locale, {
   formatMatcher: 'best fit',
   weekday: 'short',
   day: '2-digit',

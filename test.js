@@ -1,55 +1,43 @@
-const { Log, colors: { random } } = require('./logging')
-const { isWhat } = require('./misc')
+import { Log } from './log.js'
+import { random } from './colors.js'
+import { isWhat } from './misc.js'
 
-const { log, info, warn, error, debug } = new Log({ colors: false })
-const { log: taggedLog, info: taggedInfo, warn: taggedWarn, error: taggedError, debug: taggedDebug } = new Log({ tag: { text: 'Tagged', devOnly: false } })
+//import { Log, colors, misc } from './index.js' // Can also import from the main package
 
-log(random({
-  'this': 'is',
-  'an': isWhat({})
-}, 'this a date', new Date()))
+//const { random } = colors
+//const { isWhat } = misc
 
-info(random({
-  'this': 'is',
-  'an': isWhat([])
-}, 'this a date', new Date()))
+const untaggedlog = new Log()
+const taggedLog = new Log({ tag: { text: 'Tag One', devOnly: false } })
+const uncoloredUntaggedlog = new Log({ formatting: false })
+const uncoloredTaggedlog = new Log({ tag: { text: 'Tag Two', devOnly: false }, formatting: false })
+const lineBreak = () => console.log()
 
-warn(random({
-  'this': 'is',
-  'an': isWhat(new Error())
-}, 'this a date', new Date()))
-
-error(random({
-  'this': 'is',
-  'an': isWhat(() => {})
-}, 'this a date', new Date()))
-
-debug(random({
-  'this': 'is',
-  'an': isWhat(null)
-}, 'this a date', new Date()))
-
-taggedLog({
-  'this': 'is',
-  'an': isWhat({})
-}, 'this a date', new Date())
-
-taggedInfo({
-  'this': 'is',
-  'an': isWhat([])
-}, 'this a date', new Date())
-
-taggedWarn({
-  'this': 'is',
-  'an': isWhat(new Error())
-}, 'this a date', new Date())
-
-taggedError({
-  'this': 'is',
-  'an': isWhat(() => {})
-}, 'this a date', new Date())
-
-taggedDebug({
-  'this': 'is',
-  'an': isWhat(null)
-}, 'this a date', new Date())
+for (const log of Object.keys(untaggedlog)) {
+  untaggedlog[log](random({
+    'this': 'is',
+    'an': isWhat({})
+  }, 'this a date', new Date()))
+}
+lineBreak()
+for (const log of Object.keys(uncoloredUntaggedlog)) {
+  uncoloredUntaggedlog[log](random({
+    'this': 'is',
+    'an': isWhat({})
+  }, 'this a date', new Date()))
+}
+lineBreak()
+for (const log of Object.keys(taggedLog)) {
+  taggedLog[log](random({
+    'this': 'is',
+    'an': isWhat({})
+  }, 'this a date', new Date()))
+}
+lineBreak()
+for (const log of Object.keys(uncoloredTaggedlog)) {
+  uncoloredTaggedlog[log](random({
+    'this': 'is',
+    'an': isWhat({})
+  }, 'this a date', new Date()))
+}
+lineBreak()
