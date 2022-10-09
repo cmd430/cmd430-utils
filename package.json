@@ -1,6 +1,6 @@
 {
   "name": "cmd430-utils",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "colection of common utilities for my projects",
   "type": "module",
   "main": "index.js",
