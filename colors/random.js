@@ -2,9 +2,21 @@ import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { readdir } from 'node:fs/promises'
 
-const colors = (await readdir(dirname(fileURLToPath(import.meta.url)))).map(c => c = c.slice(0, -3)).filter(c => c !== 'random')
+/* eslint-disable no-underscore-dangle */
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+/* eslint-enable no-underscore-dangle */
 
-for (let color of colors) {
+async function getColors () {
+  const colorFiles = await readdir(__dirname)
+  const colorNames = colorFiles.map(c => (c = c.slice(0, -3))).filter(c => c !== 'random')
+
+  return colorNames
+}
+
+const colors = await getColors()
+
+for (const color of colors) {
   colors[color] = Object.values(await import(`./${color}.js`))[0]
 }
 

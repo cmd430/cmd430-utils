@@ -13,10 +13,12 @@ export class Log {
 
   static #maxTagLength = 0
 
+  /* eslint-disable lines-between-class-members */
   #Log = Log
   #tag
   #tagDevOnly
   #formatting
+  /* eslint-enable lines-between-class-members */
 
   /**
    * @constructor
@@ -49,7 +51,9 @@ export class Log {
     if (this.#tagDevOnly === true && isDevEnv() === false) return
     return this.#tag ? white(paddedTag(`[${this.#tag}]`, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength)
   }
+
   #msg (type, color, ...args) {
+    // eslint-disable-next-line no-console
     return console[type](...filterMessage([
       timestamp(),
       this.#logTag(),
@@ -58,10 +62,24 @@ export class Log {
     ]).map(arg => isString(arg) && this.#formatting === false ? strip(arg) : arg))
   }
 
-  log (...args) { return this.#msg('log', white, ...args) }
-  info (...args) { return this.#msg('info', cyan, ...args) }
-  warn (...args) { return this.#msg('warn', yellow, ...args) }
-  error (...args) { return this.#msg('error', red, ...args) }
-  debug (...args) { return isDevEnv() ? this.#msg('debug', magenta, ...args) : undefined }
+  log (...args) {
+    return this.#msg('log', white, ...args)
+  }
+
+  info (...args) {
+    return this.#msg('info', cyan, ...args)
+  }
+
+  warn (...args) {
+    return this.#msg('warn', yellow, ...args)
+  }
+
+  error (...args) {
+    return this.#msg('error', red, ...args)
+  }
+
+  debug (...args) {
+    return isDevEnv() ? this.#msg('debug', magenta, ...args) : undefined
+  }
 
 }
