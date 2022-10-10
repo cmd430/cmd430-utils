@@ -1,11 +1,14 @@
-import { Log } from './log.js'
-import { random } from './colors.js'
-import { isWhat } from './misc.js'
+import { Log, random, isWhat } from './index.js'
 
-//import { Log, colors, misc } from './index.js' // Can also import from the main package
+/*
+  We Can import everything from the main package
+    import { Log, random, isWhat } from './index.js'
 
-//const { random } = colors
-//const { isWhat } = misc
+  Or import from specific files
+    import { Log } from './log.js'
+    import { random } from './colors.js'
+    import { isWhat } from './misc.js'
+*/
 
 const untaggedlog = new Log()
 const taggedLog = new Log({ tag: { text: 'Tag One', devOnly: false } })
