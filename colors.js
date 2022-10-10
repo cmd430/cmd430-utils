@@ -1,24 +1,8 @@
-import { cyan } from './colors/cyan.js'
-import { green } from './colors/green.js'
-import { grey } from './colors/grey.js'
-import { magenta } from './colors/magenta.js'
-import { red } from './colors/red.js'
-import { white } from './colors/white.js'
-import { yellow } from './colors/yellow.js'
-
-const random = (...args) => {
-  const colors = [ cyan, green, grey, magenta, red, white, yellow ]
-
-  return colors[Math.floor(Math.random() * colors.length)](...args)
-}
-
-export {
-  cyan,
-  green,
-  grey,
-  magenta,
-  random,
-  red,
-  white,
-  yellow
-}
+export * from './colors/cyan.js'
+export * from './colors/green.js'
+export * from './colors/grey.js'
+export * from './colors/magenta.js'
+export * from './colors/red.js'
+export * from './colors/white.js'
+export * from './colors/yellow.js'
+export * from './colors/random.js'

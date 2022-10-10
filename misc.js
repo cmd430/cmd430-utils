@@ -1,36 +1,17 @@
 // is
-import { isArray } from './misc/isArray.js'
-import { isAsyncFunction } from './misc/isAsyncFunction.js'
-import { isBoolean } from './misc/isBoolean.js'
-import { isDate } from './misc/isDate.js'
-import { isError } from './misc/isError.js'
-import { isFunction } from './misc/isFunction.js'
-import { isNull } from './misc/isNull.js'
-import { isNumber } from './misc/isNumber.js'
-import { isObject } from './misc/isObject.js'
-import { isRegExp } from './misc/isRegExp.js'
-import { isString } from './misc/isString.js'
-import { isType } from './misc/isType.js'
-import { isUndefined } from './misc/isUndefined.js'
-import { isWhat } from './misc/isWhat.js'
+export * from './misc/isArray.js'
+export * from './misc/isAsyncFunction.js'
+export * from './misc/isBoolean.js'
+export * from './misc/isDate.js'
+export * from './misc/isError.js'
+export * from './misc/isFunction.js'
+export * from './misc/isNull.js'
+export * from './misc/isNumber.js'
+export * from './misc/isObject.js'
+export * from './misc/isRegExp.js'
+export * from './misc/isString.js'
+export * from './misc/isType.js'
+export * from './misc/isUndefined.js'
+export * from './misc/isWhat.js'
 //
-import { wait } from './misc/wait.js'
-
-// export
-export {
-  isArray,
-  isAsyncFunction,
-  isBoolean,
-  isDate,
-  isError,
-  isFunction,
-  isNull,
-  isNumber,
-  isObject,
-  isRegExp,
-  isString,
-  isType,
-  isUndefined,
-  isWhat,
-  wait
-}
+export * from './misc/wait.js'
