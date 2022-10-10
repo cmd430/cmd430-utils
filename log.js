@@ -47,7 +47,7 @@ export class Log {
 
   #logTag () {
     if (this.#tagDevOnly === true && isDevEnv() === false) return
-    return this.#tag ? grey(paddedTag(`[${this.#tag}]`, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength)
+    return this.#tag ? white(paddedTag(`[${this.#tag}]`, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength)
   }
   #msg (type, color, ...args) {
     return console[type](...filterMessage([
