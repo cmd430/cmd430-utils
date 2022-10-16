@@ -1,6 +1,7 @@
 import { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { readdir } from 'node:fs/promises'
+import { randomInt } from 'node:crypto'
 
 /* eslint-disable no-underscore-dangle */
 const __filename = fileURLToPath(import.meta.url)
@@ -20,4 +21,4 @@ for (const color of colors) {
   colors[color] = Object.values(await import(`./${color}.js`))[0]
 }
 
-export const random = (...args) => colors[colors[Math.floor(Math.random() * colors.length)]](...args)
+export const random = (...args) => colors[colors[randomInt(colors.length)]](...args)
