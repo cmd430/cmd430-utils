@@ -1,4 +1,6 @@
-import { Log, random, isWhat } from './index.js'
+import { dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { Log, random, isWhat, __dirname, __filename } from './index.js'
 
 /*
  * We Can import everything from the main package
@@ -44,4 +46,9 @@ for (const log of Object.keys(uncoloredTaggedlog)) {
     'an': isWhat({})
   }, 'this a date', new Date()))
 }
+lineBreak()
+/* eslint-disable no-console */
+console.log(__filename())
+console.debug(__dirname())
+/* eslint-enable no-console */
 lineBreak()

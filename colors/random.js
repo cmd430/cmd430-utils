@@ -1,15 +1,9 @@
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { readdir } from 'node:fs/promises'
 import { randomInt } from 'node:crypto'
-
-/* eslint-disable no-underscore-dangle */
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
-/* eslint-enable no-underscore-dangle */
+import { __dirname } from '../misc/__dirname.js'
 
 async function getColors () {
-  const colorFiles = await readdir(__dirname)
+  const colorFiles = await readdir(__dirname())
   const colorNames = colorFiles.map(c => (c = c.slice(0, -3))).filter(c => c !== 'random')
 
   return colorNames
