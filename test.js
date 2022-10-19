@@ -1,5 +1,3 @@
-import { dirname } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { Log, random, isWhat, __dirname, __filename } from './index.js'
 
 /*
