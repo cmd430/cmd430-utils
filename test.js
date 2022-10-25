@@ -1,4 +1,4 @@
-import { Log, random, isWhat, __dirname, __filename } from './index.js'
+import { Log, random, isWhat, __dirname, __filename, wait } from './index.js'
 
 /*
  * We Can import everything from the main package
@@ -45,8 +45,11 @@ for (const log of Object.keys(uncoloredTaggedlog)) {
   }, 'this a date', new Date()))
 }
 lineBreak()
-/* eslint-disable no-console */
-console.log(__filename())
-console.debug(__dirname())
-/* eslint-enable no-console */
+untaggedlog.log(__filename())
+untaggedlog.debug(__dirname())
 lineBreak()
+untaggedlog.log('1')
+await wait({ seconds: 1 })
+untaggedlog.log('2')
+await wait({ seconds: 1 })
+untaggedlog.log('3')
