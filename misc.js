@@ -14,6 +14,7 @@ export * from './misc/isType.js'
 export * from './misc/isUndefined.js'
 export * from './misc/isWhat.js'
 //
+export * from './misc/isDevEnv.js'
 export * from './misc/wait.js'
 export * from './misc/__filename.js'
 export * from './misc/__dirname.js'

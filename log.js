@@ -2,12 +2,11 @@ import { grey, red, yellow, magenta, cyan, white } from './colors.js'
 import { strip } from './formatting.js'
 import { timestamp as currentTimestamp } from './_internal/timestamp.js'
 import { parse } from './_internal/parse.js'
-import { isString, isObject } from './misc.js'
+import { isString, isObject, isDevEnv } from './misc.js'
 
 const timestamp = () => grey(`[${currentTimestamp()}]`)
 const filterMessage = args => args.filter(a => a)
 const paddedTag = (tag, length = 7) => tag.padEnd(length)
-const isDevEnv = () => (process.env.NODE_ENV?.startsWith('prod') ?? false) === false
 
 export class Log {
 

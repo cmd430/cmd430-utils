@@ -1,4 +1,4 @@
-import { Log, random, isWhat, __dirname, __filename, wait } from './index.js'
+import { Log, random, isWhat, __dirname, __filename, wait, isDevEnv } from './index.js'
 
 /*
  * We Can import everything from the main package
@@ -53,3 +53,5 @@ await wait({ seconds: 1 })
 untaggedlog.log('2')
 await wait({ seconds: 1 })
 untaggedlog.log('3')
+lineBreak()
+untaggedlog.log('is Dev env:', isDevEnv())
