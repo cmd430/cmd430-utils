@@ -14,10 +14,10 @@ export class Log {
 
   /* eslint-disable lines-between-class-members */
   #Log = Log
-  #tag
-  #tagCenter
-  #tagDevOnly
-  #formatting
+  #tag = undefined
+  #tagCenter = true
+  #tagDevOnly = false
+  #formatting = true
   /* eslint-enable lines-between-class-members */
 
   /**
