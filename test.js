@@ -11,9 +11,10 @@ import { Log, random, isWhat, __dirname, __filename, wait, isDevEnv } from './in
  */
 
 const untaggedlog = new Log()
-const taggedLog = new Log({ tag: { text: 'Tag One', devOnly: false } })
+const taggedLog = new Log({ tag: { text: 'Example Log Tag One', devOnly: false } })
+const uncenteredTaggedLog = new Log({ tag: { text: 'Example Uncentered Tag', center: false, devOnly: false } })
 const uncoloredUntaggedlog = new Log({ formatting: false })
-const uncoloredTaggedlog = new Log({ tag: { text: 'Tag Two', devOnly: false }, formatting: false })
+const uncoloredTaggedlog = new Log({ tag: { text: 'Example Log Tag  Two Long Text', devOnly: false }, formatting: false })
 // eslint-disable-next-line no-console
 const lineBreak = () => console.log()
 
@@ -45,13 +46,27 @@ for (const log of Object.keys(uncoloredTaggedlog)) {
   }, 'this a date', new Date()))
 }
 lineBreak()
-untaggedlog.log(__filename())
-untaggedlog.debug(__dirname())
+for (const log of Object.keys(uncenteredTaggedLog)) {
+  uncenteredTaggedLog[log]({
+    'this': 'is',
+    'an': isWhat({})
+  }, 'this a date', new Date())
+}
 lineBreak()
-untaggedlog.log('1')
+for (const log of Object.keys(uncenteredTaggedLog)) {
+  uncenteredTaggedLog[log]({
+    'this': 'is',
+    'an': isWhat({})
+  }, 'this a date', new Date())
+}
+lineBreak()
+untaggedlog.log('current file path', __filename())
+untaggedlog.debug('current file directory path',__dirname())
+lineBreak()
+untaggedlog.log('1s')
 await wait({ seconds: 1 })
-untaggedlog.log('2')
+untaggedlog.log('2s')
 await wait({ seconds: 1 })
-untaggedlog.log('3')
+untaggedlog.log('3s')
 lineBreak()
 untaggedlog.log('is Dev env:', isDevEnv())
