@@ -1,3 +1,8 @@
+//
+export * from './misc/__filename.js'
+export * from './misc/__dirname.js'
+export * from './misc/wait.js'
+export * from './misc/padCenter.js'
 // is
 export * from './misc/isArray.js'
 export * from './misc/isAsyncFunction.js'
@@ -13,8 +18,4 @@ export * from './misc/isString.js'
 export * from './misc/isType.js'
 export * from './misc/isUndefined.js'
 export * from './misc/isWhat.js'
-//
 export * from './misc/isDevEnv.js'
-export * from './misc/wait.js'
-export * from './misc/__filename.js'
-export * from './misc/__dirname.js'
