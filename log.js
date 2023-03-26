@@ -16,44 +16,57 @@ export class Log {
   #Log = Log
   #tag = undefined
   #tagCenter = true
+  #tagCenterPadInner = true
   #tagDevOnly = false
   #formatting = true
   /* eslint-enable lines-between-class-members */
 
   /**
    * @constructor
-   * @param {Object} [tagOpts] - String tag or Object with log tag options
-   * @param {Object} [tagOpts.tag=undefind] - String to tag log messages with or log tag options
-   * @param {String} [tagOpts.tag.text=undefind] - String to tag log messages with
-   * @param {String} [tagOpts.tag.center=true] - String to tag log messages with
-   * @param {Boolean} [tagOpts.tag.devOnly=false] - If tag should only been shown in dev mode
+   * @param {String} [tag] - String tag
+   * @param {Object} [tagOpts] - Object with tag options
+   * @param {String} [tagOpts.center=true] - If tag should be centered
+   * @param {String} [tagOpts.centerPadInner=true] - If tag should be centered inside [] or if the [] should be centered
+   * @param {Boolean} [tagOpts.devOnly=false] - If tag should only been shown in dev mode
    * @param {Boolean} [tagOpts.formatting=true] - If logs should be have colors and styles enabled
-   * @param {String} [tagOpts] - String tag
    */
-  constructor (tagOpts) {
+  constructor (tag, tagOpts = undefined) {
     this.debug = this.debug.bind(this)
     this.log = this.log.bind(this)
     this.info = this.info.bind(this)
     this.warn = this.warn.bind(this)
     this.error = this.error.bind(this)
 
-    if (isString(tagOpts)) this.#tag = tagOpts.trim()
-    if (isObject(tagOpts)) {
-      if (isString(tagOpts.tag)) this.#tag = tagOpts.tag?.trim()
-      if (isObject(tagOpts.tag)) {
-        this.#tag = tagOpts.tag?.text?.trim()
-        this.#tagCenter = tagOpts.tag?.center ?? true
-        this.#tagDevOnly = tagOpts.tag?.devOnly ?? false
+    // Legacy Support
+    if (isObject(tag)) {
+      if (isString(tag.tag)) this.#tag = tag.tag?.trim()
+      if (isObject(tag.tag)) {
+        this.#tag = tag.tag?.text?.trim()
+        this.#tagCenter = tag.tag?.center ?? true
+        this.#tagDevOnly = tag.tag?.devOnly ?? false
       }
+      this.#formatting = tag.formatting ?? true
+    }
+    // End Legacy Support
+
+    if (isString(tag)) this.#tag = tag.trim()
+    if (isObject(tagOpts)) {
+      this.#tagCenter = tagOpts?.center ?? true
+      this.#tagCenterPadInner = tagOpts?.centerPadInner ?? true
+      this.#tagDevOnly = tagOpts?.devOnly ?? false
       this.#formatting = tagOpts.formatting ?? true
     }
+
     if (this.#tag) this.#tag = `[ ${this.#tag} ]`
     if (this.#tag && this.#tag.length > Log.#maxTagLength) Log.#maxTagLength = this.#tag.length
   }
 
   #logTag () {
     if (this.#tagDevOnly === true && isDevEnv() === false) return
-    if (this.#tagCenter) return this.#tag ? white(padCenter(this.#tag, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength)
+    if (this.#tagCenter) {
+      if (this.#tagCenterPadInner) return this.#tag ? white(`[${padCenter(this.#tag.slice(1,-1), this.#Log.#maxTagLength - 2)}]`) : paddedTag('', this.#Log.#maxTagLength)
+      return this.#tag ? white(padCenter(this.#tag, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength)
+    }
 
     return this.#tag ? white(paddedTag(this.#tag, this.#Log.#maxTagLength)) : paddedTag('', this.#Log.#maxTagLength)
   }
