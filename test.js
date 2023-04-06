@@ -13,7 +13,7 @@ import { Log, random, isWhat, __dirname, __filename, wait, isDevEnv } from './in
 const untaggedlog = new Log()
 const taggedLog = new Log({ tag: { text: 'Example Log Tag One', devOnly: false } })
 const uncenteredTaggedLog = new Log({ tag: { text: 'Example Uncentered Tag', center: false, devOnly: false } })
-const centeredPadOuterTaggedLog = new Log('Example Outer Padded Tag', { center: true, centerPadInner: false, devOnly: false })
+const centeredPadOuterTaggedLog = new Log('Example Outer Padded Tag', { centerPadInner: false, devOnly: false })
 const uncoloredUntaggedlog = new Log({ formatting: false })
 const uncoloredTaggedlog = new Log({ tag: { text: 'Example Log Tag  Two Long Text', devOnly: false }, formatting: false })
 // eslint-disable-next-line no-console
