@@ -19,6 +19,7 @@ export class Log {
   #tagCenterPadInner = true
   #tagDevOnly = false
   #formatting = true
+  #showHidden = false
   /* eslint-enable lines-between-class-members */
 
   /**
@@ -29,6 +30,7 @@ export class Log {
    * @param {String} [tagOpts.centerPadInner=true] - If tag should be centered inside [] or if the [] should be centered
    * @param {Boolean} [tagOpts.devOnly=false] - If tag should only been shown in dev mode
    * @param {Boolean} [tagOpts.formatting=true] - If logs should be have colors and styles enabled
+   * @param {Boolean} [tagOpts.showHidden=false] - If objects should have hidden properties showin in the log (debug always shows hidden)
    */
   constructor (tag, tagOpts = undefined) {
     this.debug = this.debug.bind(this)
@@ -54,7 +56,8 @@ export class Log {
       this.#tagCenter = tagOpts?.center ?? true
       this.#tagCenterPadInner = tagOpts?.centerPadInner ?? true
       this.#tagDevOnly = tagOpts?.devOnly ?? false
-      this.#formatting = tagOpts.formatting ?? true
+      this.#formatting = tagOpts?.formatting ?? true
+      this.#showHidden = tagOpts?.showHidden ?? false
     }
 
     if (this.#tag) this.#tag = `[ ${this.#tag} ]`
@@ -77,7 +80,7 @@ export class Log {
       timestamp(),
       this.#logTag(),
       color(paddedTag(`[${type.toUpperCase()}]`)),
-      parse({ colors: true }, ...args)
+      parse({ colors: true, showHidden: type === 'debug' ? true : this.#showHidden }, ...args)
     ]).map(arg => isString(arg) && this.#formatting === false ? strip(arg) : arg))
   }
 
