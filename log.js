@@ -80,7 +80,11 @@ export class Log {
       timestamp(),
       this.#logTag(),
       color(paddedTag(`[${type.toUpperCase()}]`)),
-      parse({ colors: true, showHidden: type === 'debug' ? true : this.#showHidden }, ...args)
+      parse({
+        colors: true,
+        showHidden: type === 'debug' ? true : this.#showHidden,
+        logType: type
+      }, ...args)
     ]).map(arg => isString(arg) && this.#formatting === false ? strip(arg) : arg))
   }
 
