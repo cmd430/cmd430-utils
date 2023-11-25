@@ -1,10 +1,15 @@
 import { inspect } from 'node:util'
-import { isArray, isObject, isDate, isError } from '../misc.js'
+import { isObject, isArray, isDate, isUndefined, isString } from '../misc.js'
 
 export const parse = ({ colors, showHidden }, ...args) => args.map(arg => {
-  const shouldInspect = (isObject(arg) || isArray(arg) || isDate(arg))
+  const shouldInspect = (
+    isObject(arg) ||
+    isArray(arg) ||
+    isDate(arg) ||
+    isUndefined(arg)
+  )
 
-  if (shouldInspect || (showHidden && isError(arg))) return inspect(arg, {
+  if ((shouldInspect || showHidden) && !isString(arg)) return inspect(arg, {
     showHidden: showHidden,
     depth: null,
     colors: colors
