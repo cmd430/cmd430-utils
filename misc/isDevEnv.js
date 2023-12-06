@@ -1,3 +1,5 @@
+import { env } from 'node:process'
+
 export function isDevEnv () {
-  return (process.env.NODE_ENV?.startsWith('prod') ?? false) === false
+  return (env.NODE_ENV?.startsWith('prod') ?? false) === false
 }
