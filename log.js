@@ -1,6 +1,7 @@
 import { grey, red, yellow, magenta, cyan, white } from './colors.js'
 import { strip } from './formatting.js'
 import { timestamp as currentTimestamp } from './_internal/timestamp.js'
+import { formatting as supportsFormatting } from './_internal/supports.js'
 import { parse } from './_internal/parse.js'
 import { isString, isObject, isDevEnv, padCenter } from './misc.js'
 
@@ -47,7 +48,7 @@ export class Log {
         this.#tagCenter = tag.tag?.center ?? true
         this.#tagDevOnly = tag.tag?.devOnly ?? false
       }
-      this.#formatting = tag.formatting ?? true
+      this.#formatting = tag.formatting ?? supportsFormatting()
     }
     // End Legacy Support
 
@@ -56,7 +57,7 @@ export class Log {
       this.#tagCenter = tagOpts?.center ?? true
       this.#tagCenterPadInner = tagOpts?.centerPadInner ?? true
       this.#tagDevOnly = tagOpts?.devOnly ?? false
-      this.#formatting = tagOpts?.formatting ?? true
+      this.#formatting = tagOpts?.formatting ?? supportsFormatting()
       this.#showHidden = tagOpts?.showHidden ?? false
     }
 
