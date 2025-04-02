@@ -3,6 +3,7 @@ export * from './misc/__filename.js'
 export * from './misc/__dirname.js'
 export * from './misc/wait.js'
 export * from './misc/padCenter.js'
+export * from './misc/replaceTokens.js'
 // is
 export * from './misc/isArray.js'
 export * from './misc/isAsyncFunction.js'
