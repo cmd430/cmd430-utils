@@ -3,7 +3,7 @@
  * https://stackoverflow.com/a/75355272/4958977
  */
 
-import { isNumber } from './isNumber'
+import { isNumber } from './isNumber.js'
 
 const minus0Hack = value => (Object.is(value, -0) ? '-0' : value)
 
