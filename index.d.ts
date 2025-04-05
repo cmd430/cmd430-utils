@@ -61,9 +61,9 @@ declare module 'cmd430-utils' {
   }
   export function replaceTokens (string: string, tokens: TokenMap): string
   export interface WaitOptions {
-    minutes?: number = 0
-    seconds?: number = 0
-    milliseconds?: number = 0
+    minutes?: number
+    seconds?: number
+    milliseconds?: number
   }
   export function wait (delay: WaitOptions)
 }
