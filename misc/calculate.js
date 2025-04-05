@@ -1,4 +1,9 @@
-// https://stackoverflow.com/a/75355272/4958977
+/*
+ * taken from here, added isNumber guard to calculate
+ * https://stackoverflow.com/a/75355272/4958977
+ */
+
+import { isNumber } from './isNumber'
 
 const minus0Hack = value => (Object.is(value, -0) ? '-0' : value)
 
@@ -220,6 +225,8 @@ function tokenize (expression) {
 }
 
 export function calculate (expression) {
+  if (isNumber(expression)) return expression
+
   const tokens = tokenize(expression)
   const rpn = shuntingYard(tokens)
 
