@@ -57,7 +57,7 @@ declare module 'cmd430-utils' {
   export function isWhat (object: any): string
   export function padCener (str: string, maxLen: number): string
   export interface ParsedArgs {
-    [flag: string]: string | boolean | Array<string | boolean>
+    [flag: string]: string | boolean | string[]
   }
   export function parseArgs (): ParsedArgs
   export interface TokenMap {
