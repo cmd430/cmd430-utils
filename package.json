@@ -1,11 +1,14 @@
 {
   "name": "cmd430-utils",
-  "version": "2.0.3",
+  "version": "2.3.0",
   "description": "collection of common utilities for my projects",
   "type": "module",
   "main": "index.js",
   "author": "cmd430",
   "license": "ISC",
+  "scripts": {
+    "test": "node test.js -dD --dev --named=value --array[]=one --array[]=two --array[]=three --spaces=\"this item has spaces\" 123 meep"
+  },
   "devDependencies": {
     "eslint": "^8.25.0"
   }
