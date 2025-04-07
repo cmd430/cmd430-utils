@@ -45,6 +45,7 @@ declare module 'cmd430-utils' {
   export function isAsyncFunction (object: any): boolean
   export function isBoolean (object: any): boolean
   export function isDate (object: any): boolean
+  export function isDevEnv (): boolean
   export function isError (object: any): boolean
   export function isFunction (object: any): boolean
   export function isNull (object: any): boolean
