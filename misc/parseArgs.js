@@ -1,4 +1,5 @@
 import { argv } from 'node:process'
+import { parseArgValue } from '../_internal/parseArgValue.js'
 
 export function parseArgs () {
   return argv.slice(2).reduce((args, arg) => {
@@ -10,7 +11,7 @@ export function parseArgs () {
     if (isLong && isArray === false) {
       const [ flag, value ] = arg.slice(2).split('=')
 
-      args[flag] ??= value ?? true
+      args[flag] ??= parseArgValue(value) ?? true
     }
 
     // short boolean args
@@ -27,3 +28,4 @@ export function parseArgs () {
     return args
   }, {})
 }
+
