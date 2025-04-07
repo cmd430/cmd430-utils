@@ -56,6 +56,10 @@ declare module 'cmd430-utils' {
   export function isUndefined (object: any): boolean
   export function isWhat (object: any): string
   export function padCener (str: string, maxLen: number): string
+  export interface ParsedArgs {
+    [flag: string]: string | boolean | Array<string | boolean>
+  }
+  export function parseArgs (): ParsedArgs
   export interface TokenMap {
     [token: string]: string
   }

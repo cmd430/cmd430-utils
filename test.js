@@ -1,4 +1,4 @@
-import { Log, random, isWhat, __dirname, __filename, wait, isDevEnv, calculate } from './index.js'
+import { Log, random, isWhat, __dirname, __filename, wait, isDevEnv, calculate, parseArgs } from './index.js'
 
 /*
  * We Can import everything from the main package
@@ -75,3 +75,6 @@ lineBreak()
 lineBreak()
 untaggedlog.log('Calculate:', calculate('1000 * 60 * 60 * 1'))
 untaggedlog.log('Calculate:', calculate('3600000'))
+lineBreak()
+lineBreak()
+untaggedlog.log('Args:', parseArgs())

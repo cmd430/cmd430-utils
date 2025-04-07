@@ -4,6 +4,7 @@ export * from './misc/__dirname.js'
 export * from './misc/calculate.js'
 export * from './misc/wait.js'
 export * from './misc/padCenter.js'
+export * from './misc/parseArgs.js'
 export * from './misc/replaceTokens.js'
 // is
 export * from './misc/isArray.js'
