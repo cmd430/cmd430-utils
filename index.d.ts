@@ -46,6 +46,7 @@ declare module 'cmd430-utils' {
   export function isBoolean (object: any): boolean
   export function isDate (object: any): boolean
   export function isDevEnv (): boolean
+  export function isEqual <T> (a: T, b: T): boolean
   export function isError (object: any): boolean
   export function isFunction (object: any): boolean
   export function isNull (object: any): boolean
@@ -56,11 +57,13 @@ declare module 'cmd430-utils' {
   export function isType (type: string, object: any): boolean
   export function isUndefined (object: any): boolean
   export function isWhat (object: any): string
+  export function omit <T extends object> (obj: T, ...keys: (keyof T & string)[]): Omit<T, keyof T>
   export function padCener (str: string, maxLen: number): string
   export interface ParsedArgs {
     [flag: string]: string | boolean | string[]
   }
   export function parseArgs (): ParsedArgs
+  export function pick <T extends object> (obj: T, ...keys: (keyof T & string)[]): Pick<T, keyof T>
   export interface TokenMap {
     [token: string]: string
   }
