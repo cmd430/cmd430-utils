@@ -1,9 +1,9 @@
-import { grey, red, yellow, magenta, cyan, white } from './colors.js'
-import { strip } from './formatting.js'
-import { timestamp as currentTimestamp } from './_internal/timestamp.js'
-import { formatting as supportsFormatting } from './_internal/supports.js'
-import { parse } from './_internal/parse.js'
-import { isString, isObject, isDevEnv, padCenter } from './misc.js'
+import { grey, red, yellow, magenta, cyan, white } from '../colors.js'
+import { strip } from '../formatting.js'
+import { timestamp as currentTimestamp } from '../_internal/timestamp.js'
+import { formatting as supportsFormatting } from '../_internal/supports.js'
+import { parse } from '../_internal/parse.js'
+import { isString, isObject, isDevEnv, padCenter } from '../misc.js'
 
 const timestamp = () => grey(`[${currentTimestamp()}]`)
 const filterMessage = args => args.filter(a => a)

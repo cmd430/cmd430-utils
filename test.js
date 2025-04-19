@@ -5,7 +5,7 @@ import { Log, random, isWhat, __dirname, __filename, wait, isDevEnv, calculate, 
  *   import { Log, random, isWhat } from './index.js'
  *
  * Or import from specific files
- *   import { Log } from './log.js'
+ *   import { Log } from './classes.js'
  *   import { random } from './colors.js'
  *   import { isWhat } from './misc.js'
  */

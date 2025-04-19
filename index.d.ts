@@ -1,5 +1,5 @@
 declare module 'cmd430-utils' {
-  // Log
+  // Classes
   export interface LogTagOptions {
     center?: boolean
     centerPadInner?: boolean
@@ -18,6 +18,15 @@ declare module 'cmd430-utils' {
     warn (message?: any, ...optionalParams: any[]): void
     error (message?: any, ...optionalParams: any[]): void
     debug (message?: any, ...optionalParams: any[]): void
+  }
+  export type Handler<Data = any> = (data: Data) => void
+  export declare class Emitter<EventMap = { [E: string]: any; }> {
+    on<Event extends keyof EventMap & string, Data = EventMap[Event]>(event: Event, handler: Handler<Data>): void
+    once<Event extends keyof EventMap & string, Data = EventMap[Event]>(event: Event, handler: Handler<Data>): void
+    off<Event extends keyof EventMap & string, Data = EventMap[Event]>(event: Event, handler: Handler<Data>): void
+    has<Event extends keyof EventMap & string, Data = EventMap[Event]>(event: Event, handler?: Handler<Data>): boolean
+    clear<Event extends keyof EventMap & string>(event: Event): void
+    emit<Event extends keyof EventMap & string, Data = EventMap[Event]>(event: Event, data?: Data): void
   }
 
   // Colors
