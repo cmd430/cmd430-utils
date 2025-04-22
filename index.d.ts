@@ -50,6 +50,8 @@ declare module 'cmd430-utils' {
   export function __dirname (): string
   export function __filename (): string
   export function calculate (expression: string): number
+  export async function fetchJSON <T = any> (...[ input, init ]: Parameters<typeof fetch>): Promise<T>
+  export async function fetchText <T = string> (...[ input, init ]: Parameters<typeof fetch>): Promise<T>
   export function isArray (object: any): boolean
   export function isAsyncFunction (object: any): boolean
   export function isBoolean (object: any): boolean
