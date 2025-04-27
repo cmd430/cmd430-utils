@@ -1,0 +1,59 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "lint",
+      "runOptions": {
+        "runOn": "folderOpen",
+        "reevaluateOnRerun": true,
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "reveal": "never",
+        "group": "Task",
+        "close": true
+      },
+      "problemMatcher": [
+        "$eslint-stylish"
+      ],
+      "options": {
+        "statusbar": {
+          "label": "$(console) Lint Project"
+        }
+      },
+      "label": "eslint: lint project"
+    },
+    {
+      "type":"npm",
+      "script": "build:watch",
+      "runOptions": {
+        "runOn": "folderOpen",
+        "reevaluateOnRerun": true,
+        "instanceLimit": 1
+      },
+      "presentation": {
+        "reveal": "never",
+        "group": "Task",
+        "close": true
+      },
+      "options": {
+        "statusbar": {
+          "label": "$(package) Incremental Build",
+          "hide": true
+        }
+      },
+      "label": "Incremental Build"
+    },
+    {
+      "label": "Build",
+      "type":"npm",
+      "script": "build",
+      "options": {
+        "statusbar": {
+          "label": "$(package) Build"
+        }
+      }
+    }
+  ]
+}
