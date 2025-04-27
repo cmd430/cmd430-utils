@@ -1,0 +1,12 @@
+{
+  "files.exclude": {
+    // "dist/": true
+  },
+  "files.watcherExclude": {
+    "dist/**": true
+  },
+  "search.exclude": {
+    "dist/**": true
+  },
+  "npm.packageManager": "bun"
+}

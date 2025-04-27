@@ -1,0 +1,7 @@
+export { cyan } from './cyan'
+export { green } from './green'
+export { grey } from './grey'
+export { magenta } from './magenta'
+export { red } from './red'
+export { white } from './white'
+export { yellow } from './yellow'

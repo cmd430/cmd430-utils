@@ -1,15 +1,37 @@
 {
   "name": "cmd430-utils",
-  "version": "2.3.2",
+  "version": "3.0.0",
   "description": "collection of common utilities for my projects",
-  "type": "module",
-  "main": "index.js",
   "author": "cmd430",
   "license": "ISC",
+  "type": "module",
+  "module": "dist/index.js",
+  "files": [
+    "/dist"
+  ],
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./classes": "./dist/Classes/index.js",
+    "./log": "./dist/Log/index.js",
+    "./utils": "./dist/Utils/index.js"
+  },
   "scripts": {
-    "test": "node test.js -dD --dev --prod=false --named=value --array[]=one --array[]=two --array[]=three --spaces=\"this item has spaces\" 123 meep"
+    "build": "tsup",
+    "build:watch": "tsup --watch",
+    "lint": "eslint",
+    "test": "bun ./tests/test.ts -dD --dev --prod=false --named=value --array[]=one --array[]=two --array[]=three --spaces=\"this item has spaces\" 123 meep"
   },
   "devDependencies": {
-    "eslint": "^8.25.0"
+    "@eslint/js": "^9.25.1",
+    "@stylistic/eslint-plugin": "^4.2.0",
+    "@types/bun": "latest",
+    "@types/eslint": "^9.6.1",
+    "globals": "^16.0.0",
+    "tsup": "^8.4.0",
+    "typescript-eslint": "^8.31.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
   }
 }
