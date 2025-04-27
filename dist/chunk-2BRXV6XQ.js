@@ -5,7 +5,7 @@ import {
   isObject,
   isString,
   isUndefined
-} from "./chunk-VIZA6XI7.mjs";
+} from "./chunk-LMIKXRBY.js";
 
 // src/Log/Private/parse.ts
 import { inspect } from "node:util";
@@ -77,4 +77,4 @@ export {
   white,
   yellow
 };
-//# sourceMappingURL=chunk-U64CWQ3X.mjs.map
+//# sourceMappingURL=chunk-2BRXV6XQ.js.map

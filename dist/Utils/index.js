@@ -24,7 +24,7 @@ import {
   pick,
   replaceTokens,
   wait
-} from "../chunk-VIZA6XI7.mjs";
+} from "../chunk-LMIKXRBY.js";
 export {
   calculate,
   fetchJSON,
@@ -52,4 +52,4 @@ export {
   replaceTokens,
   wait
 };
-//# sourceMappingURL=index.mjs.map
+//# sourceMappingURL=index.js.map
