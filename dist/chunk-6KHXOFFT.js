@@ -5,7 +5,7 @@ import {
   isObject,
   isString,
   isUndefined
-} from "./chunk-LMIKXRBY.js";
+} from "./chunk-LXRPCDS4.js";
 
 // src/Log/Private/parse.ts
 import { inspect } from "node:util";
@@ -77,4 +77,3 @@ export {
   white,
   yellow
 };
-//# sourceMappingURL=chunk-2BRXV6XQ.js.map

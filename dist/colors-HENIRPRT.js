@@ -6,8 +6,8 @@ import {
   red,
   white,
   yellow
-} from "./chunk-2BRXV6XQ.js";
-import "./chunk-LMIKXRBY.js";
+} from "./chunk-6KHXOFFT.js";
+import "./chunk-LXRPCDS4.js";
 export {
   cyan,
   green,
@@ -17,4 +17,3 @@ export {
   white,
   yellow
 };
-//# sourceMappingURL=colors-72VH45DN.js.map

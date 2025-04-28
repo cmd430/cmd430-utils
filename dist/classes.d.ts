@@ -1,4 +1,4 @@
-export { L as Logger } from '../Logger-hEnMlb33.js';
+export { L as Logger } from './Logger-hEnMlb33.js';
 
 type Handler<Data = any> = (data: Data) => void;
 /**

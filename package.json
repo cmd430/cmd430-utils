@@ -6,15 +6,13 @@
   "license": "ISC",
   "type": "module",
   "module": "dist/index.js",
-  "files": [
-    "/dist"
-  ],
+  "files": [ "/dist" ],
   "types": "dist/index.d.ts",
   "exports": {
     ".": "./dist/index.js",
-    "./classes": "./dist/Classes/index.js",
-    "./log": "./dist/Log/index.js",
-    "./utils": "./dist/Utils/index.js"
+    "./classes": "./dist/classes.js",
+    "./log": "./dist/log.js",
+    "./utils": "./dist/utils.js"
   },
   "scripts": {
     "build": "tsup",
