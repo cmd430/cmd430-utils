@@ -25,30 +25,18 @@
       "label": "eslint: lint project"
     },
     {
+      "label": "Build",
       "type":"npm",
-      "script": "build:watch",
+      "script": "build",
       "runOptions": {
-        "runOn": "folderOpen",
         "reevaluateOnRerun": true,
         "instanceLimit": 1
       },
       "presentation": {
         "reveal": "never",
-        "group": "Task",
+        "group": "Build",
         "close": true
       },
-      "options": {
-        "statusbar": {
-          "label": "$(package) Incremental Build",
-          "hide": true
-        }
-      },
-      "label": "Incremental Build"
-    },
-    {
-      "label": "Build",
-      "type":"npm",
-      "script": "build",
       "options": {
         "statusbar": {
           "label": "$(package) Build"
