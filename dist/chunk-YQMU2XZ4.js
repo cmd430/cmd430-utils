@@ -5,7 +5,7 @@ import {
   isObject,
   isString,
   isUndefined
-} from "./chunk-LXRPCDS4.js";
+} from "./chunk-XTUR6TW3.js";
 
 // src/Log/Private/parse.ts
 import { inspect } from "node:util";

@@ -8,16 +8,16 @@ import {
   timestamp,
   white,
   yellow
-} from "./chunk-6KHXOFFT.js";
+} from "./chunk-YQMU2XZ4.js";
 import {
   isDevEnv,
   isString,
   padCenter
-} from "./chunk-LXRPCDS4.js";
+} from "./chunk-XTUR6TW3.js";
 
 // src/Log/Colors/random.ts
 import { randomInt } from "node:crypto";
-var colors = Object.fromEntries(Object.entries(await import("./colors-HENIRPRT.js")));
+var colors = Object.fromEntries(Object.entries(await import("./colors-S3VLVTEI.js")));
 var random = (...args) => Object.values(colors)[randomInt(Object.keys(colors).length)](...args);
 
 // src/Log/Formatting/bold.ts

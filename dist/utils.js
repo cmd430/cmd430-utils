@@ -18,13 +18,14 @@ import {
   isType,
   isUndefined,
   isWhat,
+  obtain,
   omit,
   padCenter,
   parseArgs,
   pick,
   replaceTokens,
   wait
-} from "./chunk-LXRPCDS4.js";
+} from "./chunk-XTUR6TW3.js";
 export {
   calculate,
   fetchJSON,
@@ -45,6 +46,7 @@ export {
   isType,
   isUndefined,
   isWhat,
+  obtain,
   omit,
   padCenter,
   parseArgs,

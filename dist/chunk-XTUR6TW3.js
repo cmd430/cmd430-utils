@@ -283,6 +283,29 @@ function isWhat(object) {
   return Object.prototype.toString.call(object).match(/\[object (?<type>\w+)\]/).groups.type;
 }
 
+// src/Utils/obtain.ts
+var SmartResponse = class extends Response {
+  _contentType;
+  _data = Promise.resolve();
+  constructor(...[body, options]) {
+    super(body, options);
+    this._contentType = this.headers.get("content-type");
+    if (this._contentType?.includes("json")) {
+      this._data = this.clone().json();
+    }
+    if (this._contentType?.includes("text")) {
+      this._data = this.clone().text();
+    }
+  }
+  get data() {
+    return this._data;
+  }
+};
+async function obtain(...[input, init]) {
+  const res = await fetch(input, init);
+  return new SmartResponse(res.body, res);
+}
+
 // src/Utils/omit.ts
 function omit(obj, ...keys) {
   return keys.reduce((filtered, key) => {
@@ -367,6 +390,7 @@ export {
   isString,
   isUndefined,
   isWhat,
+  obtain,
   omit,
   padCenter,
   parseArgs,

@@ -8,7 +8,7 @@ import {
   random,
   strip,
   underline
-} from "./chunk-MQT24JOZ.js";
+} from "./chunk-FHMWBPBV.js";
 import {
   cyan,
   green,
@@ -17,7 +17,7 @@ import {
   red,
   white,
   yellow
-} from "./chunk-6KHXOFFT.js";
+} from "./chunk-YQMU2XZ4.js";
 import {
   calculate,
   fetchJSON,
@@ -38,13 +38,14 @@ import {
   isType,
   isUndefined,
   isWhat,
+  obtain,
   omit,
   padCenter,
   parseArgs,
   pick,
   replaceTokens,
   wait
-} from "./chunk-LXRPCDS4.js";
+} from "./chunk-XTUR6TW3.js";
 export {
   Emitter,
   Logger as Log,
@@ -75,6 +76,7 @@ export {
   isWhat,
   italic,
   magenta,
+  obtain,
   omit,
   padCenter,
   parseArgs,

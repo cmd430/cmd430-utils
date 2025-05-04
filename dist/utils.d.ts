@@ -37,6 +37,14 @@ declare function isUndefined(object: any): boolean;
 
 declare function isWhat(object: any): ObjectType;
 
+declare class SmartResponse<T = any> extends Response {
+    private _contentType;
+    private _data;
+    constructor(...[body, options]: ConstructorParameters<typeof Response>);
+    get data(): Promise<T> | Promise<void>;
+}
+declare function obtain<T = any>(...[input, init]: Parameters<typeof fetch>): Promise<SmartResponse<T>>;
+
 declare function omit<T extends object>(obj: T, ...keys: (keyof T & string)[]): Omit<T, keyof T>;
 
 declare function padCenter(str: string, maxLen: number): string;
@@ -60,4 +68,4 @@ interface WaitOptions {
     milliseconds?: number;
 }
 
-export { type ObjectType, calculate, fetchJSON, fetchText, isArray, isAsyncFunction, isBoolean, isDate, isDevEnv, isEqual, isError, isFunction, isNull, isNumber, isObject, isRegExp, isString, isType, isUndefined, isWhat, omit, padCenter, parseArgs, pick, replaceTokens, wait };
+export { type ObjectType, calculate, fetchJSON, fetchText, isArray, isAsyncFunction, isBoolean, isDate, isDevEnv, isEqual, isError, isFunction, isNull, isNumber, isObject, isRegExp, isString, isType, isUndefined, isWhat, obtain, omit, padCenter, parseArgs, pick, replaceTokens, wait };
