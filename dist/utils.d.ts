@@ -38,7 +38,7 @@ declare function isUndefined(object: any): boolean;
 declare function isWhat(object: any): ObjectType;
 
 declare abstract class SmartResponse<T = any> extends Response {
-    abstract get data(): T | undefined;
+    abstract get data(): T;
 }
 declare function obtain<T = any>(...[input, init]: Parameters<typeof fetch>): Promise<SmartResponse<T>>;
 

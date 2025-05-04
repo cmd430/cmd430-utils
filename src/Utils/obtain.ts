@@ -1,5 +1,5 @@
 export abstract class SmartResponse <T = any> extends Response {
-  public abstract get data (): T | undefined
+  public abstract get data (): T
 }
 
 export async function obtain <T = any> (...[ input, init ]: Parameters<typeof fetch>): Promise<SmartResponse<T>> {
