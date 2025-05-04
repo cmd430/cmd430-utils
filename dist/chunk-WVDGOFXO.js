@@ -284,26 +284,24 @@ function isWhat(object) {
 }
 
 // src/Utils/obtain.ts
-var SmartResponse = class extends Response {
-  _contentType;
-  _data = Promise.resolve();
-  constructor(...[body, options]) {
-    super(body, options);
-    this._contentType = this.headers.get("content-type");
-    if (this._contentType?.includes("json")) {
-      this._data = this.clone().json();
-    }
-    if (this._contentType?.includes("text")) {
-      this._data = this.clone().text();
-    }
-  }
-  get data() {
-    return this._data;
-  }
-};
 async function obtain(...[input, init]) {
   const res = await fetch(input, init);
-  return new SmartResponse(res.body, res);
+  const contentType = res.headers.get("content-type");
+  if (contentType?.includes("json")) {
+    Object.defineProperty(res, "data", {
+      enumerable: true,
+      writable: false,
+      value: await res.clone().json()
+    });
+  }
+  if (contentType?.includes("text")) {
+    Object.defineProperty(res, "data", {
+      enumerable: true,
+      writable: false,
+      value: await res.clone().text()
+    });
+  }
+  return res;
 }
 
 // src/Utils/omit.ts
