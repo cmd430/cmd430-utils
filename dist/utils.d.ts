@@ -68,4 +68,4 @@ interface WaitOptions {
     milliseconds?: number;
 }
 
-export { type ObjectType, calculate, fetchJSON, fetchText, isArray, isAsyncFunction, isBoolean, isDate, isDevEnv, isEqual, isError, isFunction, isNull, isNumber, isObject, isRegExp, isString, isType, isUndefined, isWhat, obtain, omit, padCenter, parseArgs, pick, replaceTokens, wait };
+export { type ObjectType, SmartResponse, calculate, fetchJSON, fetchText, isArray, isAsyncFunction, isBoolean, isDate, isDevEnv, isEqual, isError, isFunction, isNull, isNumber, isObject, isRegExp, isString, isType, isUndefined, isWhat, obtain, omit, padCenter, parseArgs, pick, replaceTokens, wait };

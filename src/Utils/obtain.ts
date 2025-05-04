@@ -1,4 +1,4 @@
-class SmartResponse <T = any> extends Response {
+export class SmartResponse <T = any> extends Response {
 
   private _contentType: string | null
   private _data: Promise<T> | Promise<void> = Promise.resolve()
