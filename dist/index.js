@@ -1,5 +1,6 @@
 import "./chunk-ARGV3QLU.js";
 import {
+  CircularBuffer,
   Emitter,
   Logger,
   bold,
@@ -8,7 +9,7 @@ import {
   random,
   strip,
   underline
-} from "./chunk-ZM2NXAQA.js";
+} from "./chunk-S4GVGOSY.js";
 import {
   cyan,
   green,
@@ -47,6 +48,7 @@ import {
   wait
 } from "./chunk-WVDGOFXO.js";
 export {
+  CircularBuffer,
   Emitter,
   Logger as Log,
   Logger,

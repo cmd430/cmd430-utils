@@ -251,6 +251,65 @@ var Emitter = class {
   }
 };
 
+// src/Classes/CircularBuffer.ts
+var CircularBuffer = class {
+  _buffer;
+  _pointer = 0;
+  _maxLength;
+  /**
+   * Creates a new CircularBuffer with `bufferSize` max items.
+   */
+  constructor(bufferSize) {
+    this._maxLength = bufferSize;
+    this._buffer = new Array(bufferSize);
+  }
+  /**
+   * Appends new elements to the end of the CircularBuffer
+   */
+  push(item) {
+    if (this._buffer.length === this._maxLength) {
+      this._buffer[this._pointer] = item;
+    } else {
+      this._buffer.push(item);
+    }
+    this._pointer = (this._pointer + 1) % this._maxLength;
+  }
+  /**
+   * Returns the item located at the specified index. oldest first.
+   */
+  at(index) {
+    const isPositive = 1 / (index * 0) === 1 / 0;
+    const absIndex = Math.abs(index);
+    if (absIndex >= this._maxLength) return void 0;
+    if (isPositive) return this._buffer[(this._pointer + absIndex) % this._maxLength];
+    return this._buffer[(this._pointer + (this._maxLength - 1) - absIndex) % this._maxLength];
+  }
+  /**
+   * Determines whether a CircularBuffer includes a certain item, returning true or false as appropriate.
+   */
+  contains(value) {
+    return this.toArray().includes(value);
+  }
+  /**
+   * Creates an array from a CircularBuffer.
+   */
+  toArray() {
+    const result = [];
+    for (let i = 0; i < this._maxLength; i++) {
+      const item = this._buffer[(this._pointer + i) % this._maxLength];
+      if (item == null) continue;
+      result.push(item);
+    }
+    return result.filter(Boolean);
+  }
+  /**
+   * Returns a string representation of a CircularBuffer.
+   */
+  toString() {
+    return this.toArray().toString();
+  }
+};
+
 export {
   random,
   bold,
@@ -259,5 +318,6 @@ export {
   strip,
   underline,
   Logger,
-  Emitter
+  Emitter,
+  CircularBuffer
 };

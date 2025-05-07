@@ -39,4 +39,50 @@ declare class Emitter<EventMap = {
     emit<Event extends keyof EventMap & string, Data = EventMap[Event]>(event: Event, data?: Data): void;
 }
 
-export { Emitter };
+/**
+ * A fixed size Array new items exceeding the size size overwrite the oldest item in the CircularBuffer.
+ *
+ * @example
+ * const circularBuffer = new CircularBuffer(3)
+ * circularBuffer.push('a')
+ * circularBuffer.push('b')
+ * circularBuffer.push('c')
+ * circularBuffer.push('d')
+ *
+ * console.log(circularBuffer.contains('a'))
+ * // returns false
+ *
+ * console.log(circularBuffer.toArray())
+ * // returns [ 'b', 'c', 'd' ]
+ */
+declare class CircularBuffer<T extends string | boolean | number> {
+    private _buffer;
+    private _pointer;
+    private _maxLength;
+    /**
+     * Creates a new CircularBuffer with `bufferSize` max items.
+     */
+    constructor(bufferSize: number);
+    /**
+     * Appends new elements to the end of the CircularBuffer
+     */
+    push(item: T): void;
+    /**
+     * Returns the item located at the specified index. oldest first.
+     */
+    at(index: number): T | undefined;
+    /**
+     * Determines whether a CircularBuffer includes a certain item, returning true or false as appropriate.
+     */
+    contains(value: T): boolean;
+    /**
+     * Creates an array from a CircularBuffer.
+     */
+    toArray(): T[];
+    /**
+     * Returns a string representation of a CircularBuffer.
+     */
+    toString(): string;
+}
+
+export { CircularBuffer, Emitter };
