@@ -20,12 +20,12 @@ export class Logger {
 
   private static _maxTagLength = 0
 
-  private _tag = ''
-  private _tagCenter = true
-  private _tagCenterPadInner = true
-  private _tagDevOnly = false
-  private _formatting = true
-  private _showHidden = false
+  private _tag: string
+  private _tagCenter: boolean
+  private _tagCenterPadInner: boolean
+  private _tagDevOnly: boolean
+  private _formatting: boolean
+  private _showHidden: boolean
 
   constructor (tag?: string, tagOpts?: LogTagOptions) {
     // Allow destructuring the methods
