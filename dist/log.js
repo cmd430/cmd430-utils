@@ -1,5 +1,6 @@
 import "./chunk-ARGV3QLU.js";
 import {
+  ConsoleLogger,
   Logger,
   bold,
   html,
@@ -7,7 +8,7 @@ import {
   random,
   strip,
   underline
-} from "./chunk-S4GVGOSY.js";
+} from "./chunk-Y6V45JQJ.js";
 import {
   cyan,
   green,
@@ -19,6 +20,7 @@ import {
 } from "./chunk-DFOB3YKS.js";
 import "./chunk-WVDGOFXO.js";
 export {
+  ConsoleLogger,
   Logger as Log,
   bold,
   cyan,

@@ -1,4 +1,4 @@
-export { L as Log } from './Logger-hEnMlb33.js';
+export { C as ConsoleLogger, L as Log } from './ConsoleLogger-BR-k3hDt.js';
 
 declare const cyan: ColorFN;
 

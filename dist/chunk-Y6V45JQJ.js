@@ -121,12 +121,12 @@ var filterMessage = (args) => args.filter((a) => a);
 var paddedTag = (tag, length = 7) => tag.padEnd(length);
 var Logger = class _Logger {
   static _maxTagLength = 0;
-  _tag = "";
-  _tagCenter = true;
-  _tagCenterPadInner = true;
-  _tagDevOnly = false;
-  _formatting = true;
-  _showHidden = false;
+  _tag;
+  _tagCenter;
+  _tagCenterPadInner;
+  _tagDevOnly;
+  _formatting;
+  _showHidden;
   constructor(tag, tagOpts) {
     this.debug = this.debug.bind(this);
     this.log = this.log.bind(this);
@@ -310,6 +310,106 @@ var CircularBuffer = class {
   }
 };
 
+// src/Classes/ConsoleLogger.ts
+import { inspect } from "node:util";
+import { existsSync, unlinkSync, appendFileSync } from "node:fs";
+import { resolve } from "node:path";
+var ConsoleLogger = class _ConsoleLogger {
+  static _console = {
+    log: globalThis.console.log,
+    info: globalThis.console.info,
+    warn: globalThis.console.warn,
+    error: globalThis.console.error,
+    debug: globalThis.console.debug,
+    group: globalThis.console.group,
+    groupEnd: globalThis.console.groupEnd
+  };
+  static _enabled = false;
+  static _dirPath = ".";
+  static _stdOut = "stdout.log";
+  static _stdErr = "stderr.log";
+  /**
+   * Clear/Delete the log files if they exist
+   */
+  static clear() {
+    const stdOut = _ConsoleLogger.stdOutPath;
+    const stdErr = _ConsoleLogger.stdErrPath;
+    if (existsSync(stdOut)) unlinkSync(stdOut);
+    if (existsSync(stdErr)) unlinkSync(stdErr);
+  }
+  static get stdOutPath() {
+    return resolve(_ConsoleLogger._dirPath, _ConsoleLogger._stdOut);
+  }
+  static get stdErrPath() {
+    return resolve(_ConsoleLogger._dirPath, _ConsoleLogger._stdErr);
+  }
+  static _write(type, args) {
+    const path = type === "error" ? _ConsoleLogger.stdErrPath : _ConsoleLogger.stdOutPath;
+    _ConsoleLogger._console[type](...args);
+    return appendFileSync(path, `${args.map((arg) => typeof arg === "string" ? arg : inspect(arg, {
+      colors: false,
+      depth: 10
+    })).join(" ")}
+`, "utf8");
+  }
+  /**
+   * Enable writing console.<log|info|warn|error|debug|group|groupEnd> to log files
+   */
+  static enable() {
+    if (_ConsoleLogger.enabled) return;
+    globalThis.console.log = (...args) => _ConsoleLogger._write("log", args);
+    globalThis.console.info = (...args) => _ConsoleLogger._write("info", args);
+    globalThis.console.warn = (...args) => _ConsoleLogger._write("warn", args);
+    globalThis.console.error = (...args) => _ConsoleLogger._write("error", args);
+    globalThis.console.debug = (...args) => _ConsoleLogger._write("debug", args);
+    globalThis.console.group = (...args) => _ConsoleLogger._write("group", args);
+    globalThis.console.groupEnd = (...args) => _ConsoleLogger._write("groupEnd", args);
+    _ConsoleLogger._enabled = true;
+  }
+  /**
+   * Disable writing console.<log|info|warn|error|debug|group|groupEnd> to log files
+   */
+  static disable() {
+    if (_ConsoleLogger.enabled === false) return;
+    globalThis.console.log = _ConsoleLogger._console.log;
+    globalThis.console.info = _ConsoleLogger._console.info;
+    globalThis.console.warn = _ConsoleLogger._console.warn;
+    globalThis.console.error = _ConsoleLogger._console.error;
+    globalThis.console.debug = _ConsoleLogger._console.debug;
+    globalThis.console.group = _ConsoleLogger._console.group;
+    globalThis.console.groupEnd = _ConsoleLogger._console.groupEnd;
+    _ConsoleLogger._enabled = false;
+  }
+  /**
+   * Toggle writing console.<log|info|warn|error|debug|group|groupEnd> to log files
+   */
+  static toggle() {
+    if (_ConsoleLogger.enabled) {
+      return _ConsoleLogger.disable();
+    }
+    return _ConsoleLogger.enable();
+  }
+  /**
+   * Set the directory path for the log files
+   */
+  static setDir(dirpath) {
+    _ConsoleLogger._dirPath = dirpath;
+  }
+  /**
+   * File names for the two log files (stdout, stderr)
+   */
+  static setNames(stdout, stderr) {
+    _ConsoleLogger._stdOut = stdout;
+    _ConsoleLogger._stdErr = stderr;
+  }
+  /**
+   * Check if writing the log files is enabled or not
+   */
+  static get enabled() {
+    return _ConsoleLogger._enabled;
+  }
+};
+
 export {
   random,
   bold,
@@ -319,5 +419,6 @@ export {
   underline,
   Logger,
   Emitter,
-  CircularBuffer
+  CircularBuffer,
+  ConsoleLogger
 };
