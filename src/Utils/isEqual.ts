@@ -1,3 +1,6 @@
+/**
+ * Check if a given object is the same as another given object
+ */
 export function isEqual <T> (a: T, b: T): boolean {
   if (a === b) {
     return true

@@ -1,3 +1,6 @@
+/**
+ * Check if a given object is of <type>
+ */
 export function isType (type: ObjectType, object: any): boolean {
   return Object.prototype.toString.call(object) === `[object ${type}]`
 }

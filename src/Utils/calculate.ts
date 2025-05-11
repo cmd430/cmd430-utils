@@ -279,6 +279,12 @@ function tokenize (expression: string) {
   return tokens
 }
 
+/**
+ * Calculate a value from a math expression string
+ *
+ * @example
+ * calculate('100 * 2') // 200
+ */
 export function calculate (expression: string): number {
   const tokens = tokenize(expression)
   const rpn = shuntingYard(tokens)

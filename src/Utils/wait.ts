@@ -1,3 +1,6 @@
+/**
+ * Async Wait
+ */
 export function wait (delay: WaitOptions): Promise<void> {
   const { promise, resolve } = Promise.withResolvers<void>()
   const { minutes = 0, seconds = 0, milliseconds = 0 } = delay

@@ -10,6 +10,24 @@ const parseArgBool: (argValue: string | undefined) => boolean | string = argValu
   return true
 }
 
+/**
+ * Return an object of parsed cmdline args
+ *
+ * @example
+ *
+ * $ bun example.ts -dD --dev --prod=false --named=value --array[]=one --array[]=two --array[]=three --spaces="this item has spaces"
+ *
+ * {
+ *   d: true,
+ *   D: true,
+ *   dev: true,
+ *   prod: false,
+ *   named: 'value',
+ *   array: [ 'one', 'two', 'three' ],
+ *   spaces: 'this item has spaces'
+ * }
+ *
+ */
 export function parseArgs (): Args {
   return argv.slice(2).reduce((args, arg) => {
     const isLong = arg.slice(0, 2) === '--'

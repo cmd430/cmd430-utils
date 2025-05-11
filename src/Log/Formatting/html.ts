@@ -1,5 +1,13 @@
 import type { FormatFN } from '.'
 
+/**
+ * Replace text console escape codes with HTML
+ *
+ * > **Notice:** _does not work with rgb colored text at this time_!
+ *
+ * @example
+ * html(red('this is red text as html'))
+ */
 export const html: FormatFN = arg => {
   // eslint-disable-next-line no-control-regex
   for (const { groups } of arg.matchAll(/(?<full>\x1b[[(?);]{0,2}(?<code>;?\d*).)/g)) {
