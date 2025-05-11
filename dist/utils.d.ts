@@ -1,3 +1,5 @@
+import { C as ColorHexString, a as ColorRGB, R as RGBArgs } from './Colors-DnV0vRpA.js';
+
 /**
  * Calculate a value from a math expression string
  *
@@ -19,6 +21,11 @@ declare function fetchJSON<T = any>(...[input, init]: Parameters<typeof fetch>):
  * @deprecated use `obtain`
  */
 declare function fetchText<T = string>(...[input, init]: Parameters<typeof fetch>): Promise<T>;
+
+/**
+ * Return an object of `r,g,b` from a hex color string
+ */
+declare function hexToRgb(hex: ColorHexString): ColorRGB;
 
 /**
  * Check if a given object is an Array
@@ -164,6 +171,11 @@ interface TokenMap {
 }
 
 /**
+ * Return a hex color string from RGB value
+ */
+declare function rgbToHex(rgb: RGBArgs): ColorHexString;
+
+/**
  * Async Wait
  */
 declare function wait(delay: WaitOptions): Promise<void>;
@@ -173,4 +185,4 @@ interface WaitOptions {
     milliseconds?: number;
 }
 
-export { type ObjectType, SmartResponse, calculate, fetchJSON, fetchText, isArray, isAsyncFunction, isBoolean, isDate, isDevEnv, isEqual, isError, isFunction, isNull, isNumber, isObject, isRegExp, isString, isType, isUndefined, isWhat, obtain, omit, padCenter, parseArgs, pick, replaceTokens, wait };
+export { type ObjectType, SmartResponse, calculate, fetchJSON, fetchText, hexToRgb, isArray, isAsyncFunction, isBoolean, isDate, isDevEnv, isEqual, isError, isFunction, isNull, isNumber, isObject, isRegExp, isString, isType, isUndefined, isWhat, obtain, omit, padCenter, parseArgs, pick, replaceTokens, rgbToHex, wait };

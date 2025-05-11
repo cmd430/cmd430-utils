@@ -196,6 +196,20 @@ async function fetchText(...[input, init]) {
   return res.text();
 }
 
+// src/Utils/hexToRGB.ts
+function hexToRgb(hex) {
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  const hexNumbers = hex.replace(shorthandRegex, (_, r2, g2, b2) => `${r2}${r2}${g2}${g2}${b2}${b2}}`);
+  const matched = hexNumbers.match(/^#?(?<r>[a-f\d]{2})(?<g>[a-f\d]{2})(?<b>[a-f\d]{2})$/i);
+  if (!matched) throw new Error("invalid input");
+  const { r, g, b } = matched.groups;
+  return {
+    r: parseInt(r, 16),
+    g: parseInt(g, 16),
+    b: parseInt(b, 16)
+  };
+}
+
 // src/Utils/isType.ts
 function isType(type, object) {
   return Object.prototype.toString.call(object) === `[object ${type}]`;
@@ -360,6 +374,14 @@ function replaceTokens(string, tokens) {
   return string;
 }
 
+// src/Utils/rgbToHex.ts
+function rgbToHex(rgb) {
+  const r = ("r" in rgb ? rgb.r : rgb[0]) ?? 0;
+  const g = ("g" in rgb ? rgb.g : rgb[1]) ?? 0;
+  const b = ("b" in rgb ? rgb.b : rgb[2]) ?? 0;
+  return `#${(1 << 24 | r << 16 | (g << 8 | b)).toString(16).slice(1)}`;
+}
+
 // src/Utils/wait.ts
 function wait(delay) {
   const { promise, resolve } = Promise.withResolvers();
@@ -372,6 +394,7 @@ export {
   calculate,
   fetchJSON,
   fetchText,
+  hexToRgb,
   isType,
   isArray,
   isAsyncFunction,
@@ -394,5 +417,6 @@ export {
   parseArgs,
   pick,
   replaceTokens,
+  rgbToHex,
   wait
 };

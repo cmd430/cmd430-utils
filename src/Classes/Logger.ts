@@ -15,7 +15,7 @@ interface LogTagOptions {
 
 const timestamp: () => string = () => grey(`[${currentTimestamp()}]`)
 const filterMessage: (args: any[]) => any[] = args => args.filter(a => a)
-const paddedTag: (tag: string, length?: number) => string = (tag, length = 7) => tag.padEnd(length)
+const paddedTag: (tag: string, length?: number, start?: boolean) => string = (tag, length = 7, start = false) => start ? tag.padStart(length) : tag.padEnd(length)
 
 /**
  * Logger with timestamps, and tagged log messages
@@ -63,23 +63,33 @@ export class Logger {
   private _logTag () {
     if (this._devOnly === true && isDevEnv() === false) return ''
 
-    if (this._alignment === 'center') {
+    if (this._tag && this._alignment === 'left') {
       // eslint-disable-next-line no-underscore-dangle
-      return this._tag ? white(padCenter(this._tag, Logger._maxTagLength)) : paddedTag('', Logger._maxTagLength)
+      return white(paddedTag(this._tag, Logger._maxTagLength))
     }
 
-    if (this._alignment === 'ceter-padded') {
+    if (this._tag && this._alignment === 'center') {
       // eslint-disable-next-line no-underscore-dangle
-      return this._tag ? white(`[${padCenter(this._tag.slice(1,-1), Logger._maxTagLength - 2)}]`) : paddedTag('', Logger._maxTagLength)
+      return white(padCenter(this._tag, Logger._maxTagLength))
     }
 
-    if (this._alignment === 'left') {
+    if (this._tag && this._alignment === 'ceter-padded') {
       // eslint-disable-next-line no-underscore-dangle
-      return this._tag ? white(paddedTag(this._tag, Logger._maxTagLength)) : paddedTag('', Logger._maxTagLength)
+      return white(`[${padCenter(this._tag.slice(1,-1), Logger._maxTagLength - 2)}]`)
     }
 
-    // none
-    return this._tag ? white(this._tag) : ''
+    if (this._tag && this._alignment === 'right') {
+      // eslint-disable-next-line no-underscore-dangle
+      return white(paddedTag(this._tag, Logger._maxTagLength, true))
+    }
+
+    if (this._tag && this._alignment === 'none') {
+      return white(this._tag)
+    }
+
+    // eslint-disable-next-line no-underscore-dangle
+    return this._alignment === 'none' ? '' : paddedTag('', Logger._maxTagLength)
+
   }
 
   private _msg (type: LogType, color: ColorFN, ...args: any[]) {

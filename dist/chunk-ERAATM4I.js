@@ -8,16 +8,16 @@ import {
   timestamp,
   white,
   yellow
-} from "./chunk-GM4BSJQ5.js";
+} from "./chunk-RIMMHOZ2.js";
 import {
   isDevEnv,
   isString,
   padCenter
-} from "./chunk-GLPERZIR.js";
+} from "./chunk-JYAUZJLB.js";
 
 // src/Log/Colors/random.ts
 import { randomInt } from "node:crypto";
-var colors2 = Object.fromEntries(Object.entries(await import("./colors-FTYJQIK6.js")));
+var colors2 = Object.fromEntries(Object.entries(await import("./colors-YQPFHK5B.js")));
 var random = (...args) => Object.values(colors2)[randomInt(Object.keys(colors2).length)](...args);
 
 // src/Log/Colors/rgb.ts
@@ -126,7 +126,7 @@ var underline = (...args) => `\x1B[4m${parse({ colors: false }, ...args)}\x1B[24
 // src/Classes/Logger.ts
 var timestamp2 = () => grey(`[${timestamp()}]`);
 var filterMessage = (args) => args.filter((a) => a);
-var paddedTag = (tag, length = 7) => tag.padEnd(length);
+var paddedTag = (tag, length = 7, start = false) => start ? tag.padStart(length) : tag.padEnd(length);
 var Logger = class _Logger {
   static _maxTagLength = 0;
   _tag;
@@ -161,16 +161,22 @@ var Logger = class _Logger {
   }
   _logTag() {
     if (this._devOnly === true && isDevEnv() === false) return "";
-    if (this._alignment === "center") {
-      return this._tag ? white(padCenter(this._tag, _Logger._maxTagLength)) : paddedTag("", _Logger._maxTagLength);
+    if (this._tag && this._alignment === "left") {
+      return white(paddedTag(this._tag, _Logger._maxTagLength));
     }
-    if (this._alignment === "ceter-padded") {
-      return this._tag ? white(`[${padCenter(this._tag.slice(1, -1), _Logger._maxTagLength - 2)}]`) : paddedTag("", _Logger._maxTagLength);
+    if (this._tag && this._alignment === "center") {
+      return white(padCenter(this._tag, _Logger._maxTagLength));
     }
-    if (this._alignment === "left") {
-      return this._tag ? white(paddedTag(this._tag, _Logger._maxTagLength)) : paddedTag("", _Logger._maxTagLength);
+    if (this._tag && this._alignment === "ceter-padded") {
+      return white(`[${padCenter(this._tag.slice(1, -1), _Logger._maxTagLength - 2)}]`);
     }
-    return this._tag ? white(this._tag) : "";
+    if (this._tag && this._alignment === "right") {
+      return white(paddedTag(this._tag, _Logger._maxTagLength, true));
+    }
+    if (this._tag && this._alignment === "none") {
+      return white(this._tag);
+    }
+    return this._alignment === "none" ? "" : paddedTag("", _Logger._maxTagLength);
   }
   _msg(type, color, ...args) {
     return console[type](...filterMessage([

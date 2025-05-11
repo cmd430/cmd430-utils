@@ -2,6 +2,7 @@ import {
   calculate,
   fetchJSON,
   fetchText,
+  hexToRgb,
   isArray,
   isAsyncFunction,
   isBoolean,
@@ -24,12 +25,14 @@ import {
   parseArgs,
   pick,
   replaceTokens,
+  rgbToHex,
   wait
-} from "./chunk-GLPERZIR.js";
+} from "./chunk-JYAUZJLB.js";
 export {
   calculate,
   fetchJSON,
   fetchText,
+  hexToRgb,
   isArray,
   isAsyncFunction,
   isBoolean,
@@ -52,5 +55,6 @@ export {
   parseArgs,
   pick,
   replaceTokens,
+  rgbToHex,
   wait
 };

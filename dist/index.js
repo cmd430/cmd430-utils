@@ -10,7 +10,7 @@ import {
   rgb,
   strip,
   underline
-} from "./chunk-R6XAUCIJ.js";
+} from "./chunk-ERAATM4I.js";
 import {
   cyan,
   green,
@@ -19,11 +19,12 @@ import {
   red,
   white,
   yellow
-} from "./chunk-GM4BSJQ5.js";
+} from "./chunk-RIMMHOZ2.js";
 import {
   calculate,
   fetchJSON,
   fetchText,
+  hexToRgb,
   isArray,
   isAsyncFunction,
   isBoolean,
@@ -46,8 +47,9 @@ import {
   parseArgs,
   pick,
   replaceTokens,
+  rgbToHex,
   wait
-} from "./chunk-GLPERZIR.js";
+} from "./chunk-JYAUZJLB.js";
 export {
   CircularBuffer,
   ConsoleLogger,
@@ -61,6 +63,7 @@ export {
   fetchText,
   green,
   grey,
+  hexToRgb,
   html,
   isArray,
   isAsyncFunction,
@@ -89,6 +92,7 @@ export {
   red,
   replaceTokens,
   rgb,
+  rgbToHex,
   strip,
   underline,
   wait,

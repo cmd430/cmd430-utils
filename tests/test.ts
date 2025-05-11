@@ -16,7 +16,7 @@ const taggedLog = new Log('Example Padded Aligned Tag', { alignment: 'ceter-padd
 const uncenteredTaggedLog = new Log('Example Left Aligned Tag', { alignment: 'left' })
 const centeredPadOuterTaggedLog = new Log('Example Center Aligned Tag', { alignment: 'center' })
 const uncoloredUntaggedlog = new Log('', { alignment: 'none', colors: false })
-const uncoloredTaggedlog = new Log('Example None Aligned Tag', { alignment: 'none', colors: false })
+const uncoloredTaggedlog = new Log('Example Right Aligned Tag', { alignment: 'right', colors: false })
 // eslint-disable-next-line no-console
 const lineBreak = () => console.log()
 
