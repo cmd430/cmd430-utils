@@ -1,6 +1,6 @@
 import { env, platform, stdout } from 'node:process'
 
-export function formatting (): boolean {
+export function colors (): boolean {
   // super basic color support check
 
   if ((/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i).test(env.TERM ?? '')) return true
