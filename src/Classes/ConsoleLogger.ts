@@ -1,6 +1,7 @@
 import { inspect } from 'node:util'
 import { existsSync, unlinkSync , appendFileSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { strip } from '../Log'
 
 /* eslint-disable no-underscore-dangle */
 /**
@@ -52,10 +53,10 @@ export class ConsoleLogger {
 
     ConsoleLogger._console[type](...args)
 
-    return appendFileSync(path, `${args.map(arg => (typeof(arg) === 'string') ? arg : inspect(arg, {
+    return appendFileSync(path, `${args.map(arg => strip((typeof(arg) === 'string') ? arg : inspect(arg, {
       colors: false,
       depth: 10
-    })).join(' ')}\n`, 'utf8')
+    }))).join(' ')}\n`, 'utf8')
   }
 
   /**
