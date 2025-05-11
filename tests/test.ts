@@ -10,14 +10,18 @@ import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs } from '
  *   import { isWhat } from './misc.js'
  */
 
+const verylongtaglog = new Log('Very long tag to show the alignments')
 const untaggedlog = new Log()
-const taggedLog = new Log('Example Log Tag One', { devOnly: false })
-const uncenteredTaggedLog = new Log('Example Uncentered Tag', { center: false, devOnly: false })
-const centeredPadOuterTaggedLog = new Log('Example Outer Padded Tag', { centerPadInner: false, devOnly: false })
-const uncoloredUntaggedlog = new Log('', { formatting: false })
-const uncoloredTaggedlog = new Log('Example Log Tag  Two Long Text', { devOnly: false , formatting: false })
+const taggedLog = new Log('Example Padded Aligned Tag', { alignment: 'ceter-padded' })
+const uncenteredTaggedLog = new Log('Example Left Aligned Tag', { alignment: 'left' })
+const centeredPadOuterTaggedLog = new Log('Example Center Aligned Tag', { alignment: 'center' })
+const uncoloredUntaggedlog = new Log('', { alignment: 'none', colors: false })
+const uncoloredTaggedlog = new Log('Example None Aligned Tag', { alignment: 'none', colors: false })
 // eslint-disable-next-line no-console
 const lineBreak = () => console.log()
+
+verylongtaglog.log('')
+lineBreak()
 
 for (const log of Object.keys(untaggedlog)) {
   if (log.startsWith('_')) continue
