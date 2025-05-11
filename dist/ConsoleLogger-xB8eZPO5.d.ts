@@ -1,25 +1,53 @@
+type LogTagAlignment = 'left' | 'center' | 'ceter-padded' | 'right' | 'none';
 interface LogTagOptions {
-    center?: boolean;
-    centerPadInner?: boolean;
-    formatting?: boolean;
+    timestamps?: boolean;
+    alignment?: LogTagAlignment;
+    colors?: boolean;
     showHidden?: boolean;
     devOnly?: boolean;
 }
+/**
+ * Logger with timestamps, and tagged log messages
+ */
 declare class Logger {
     private static _maxTagLength;
     private _tag;
-    private _tagCenter;
-    private _tagCenterPadInner;
-    private _tagDevOnly;
-    private _formatting;
+    private _timestamps;
+    private _alignment;
+    private _colors;
     private _showHidden;
+    private _devOnly;
+    /**
+     * Creates a new Logger instance
+     *
+     * @example
+     * const { log, info, warn, error, debug } = new Logger()
+     *
+     * @example
+     * const { log, info, warn, error, debug } = new Logger('Tagged Log')
+     */
     constructor(tag?: string, tagOpts?: LogTagOptions);
     private _logTag;
     private _msg;
+    /**
+     * Print a message tagged as [LOG]
+     */
     log(...args: Parameters<typeof console.log>): void;
+    /**
+     * Print a message tagged as [INFO]
+     */
     info(...args: Parameters<typeof console.info>): void;
+    /**
+     * Print a message tagged as [WARN]
+     */
     warn(...args: Parameters<typeof console.warn>): void;
+    /**
+     * Print a message tagged as [ERROR]
+     */
     error(...args: Parameters<typeof console.error>): void;
+    /**
+     * Print a message tagged as [DEBUG]
+     */
     debug(...args: Parameters<typeof console.debug>): void;
 }
 

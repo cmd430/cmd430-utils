@@ -313,8 +313,8 @@ function omit(obj, ...keys) {
 }
 
 // src/Utils/padCenter.ts
-function padCenter(str, maxLen) {
-  return str.padStart((str.length + maxLen) / 2).padEnd(maxLen);
+function padCenter(str, maxLen, fillStr) {
+  return str.padStart((str.length + maxLen) / 2, fillStr).padEnd(maxLen, fillStr);
 }
 
 // src/Utils/parseArgs.ts

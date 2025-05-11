@@ -5,17 +5,17 @@ import {
   isObject,
   isString,
   isUndefined
-} from "./chunk-WVDGOFXO.js";
+} from "./chunk-GLPERZIR.js";
 
 // src/Log/Private/parse.ts
 import { inspect } from "node:util";
 var parse = (opts, ...args) => args.map((arg) => {
-  const { colors, showHidden, logType } = opts;
+  const { colors: colors2, showHidden, logType } = opts;
   const shouldInspect = isObject(arg) || isArray(arg) || isDate(arg) || isUndefined(arg);
   if ((shouldInspect || showHidden) && !isString(arg)) return inspect(arg, {
     showHidden,
     depth: null,
-    colors
+    colors: colors2
   });
   return isError(arg) && logType === "error" ? arg.stack : arg;
 }).join(" ");
@@ -36,7 +36,7 @@ var timestamp = () => (/* @__PURE__ */ new Date()).toLocaleString(locale, {
 
 // src/Log/Private/supports.ts
 import { env, platform, stdout } from "node:process";
-function formatting() {
+function colors() {
   if (/^screen|^xterm|^vt100|^vt220|^rxvt|color|ansi|cygwin|linux/i.test(env.TERM ?? "")) return true;
   if ("COLORTERM" in env) return true;
   if (platform === "win32") return true;
@@ -68,7 +68,7 @@ var yellow = (...args) => `\x1B[93m${parse({ colors: false }, ...args)}\x1B[0m`;
 export {
   parse,
   timestamp,
-  formatting,
+  colors,
   cyan,
   green,
   grey,

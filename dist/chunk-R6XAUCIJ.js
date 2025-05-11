@@ -1,6 +1,6 @@
 import {
+  colors,
   cyan,
-  formatting,
   grey,
   magenta,
   parse,
@@ -8,17 +8,25 @@ import {
   timestamp,
   white,
   yellow
-} from "./chunk-DFOB3YKS.js";
+} from "./chunk-GM4BSJQ5.js";
 import {
   isDevEnv,
   isString,
   padCenter
-} from "./chunk-WVDGOFXO.js";
+} from "./chunk-GLPERZIR.js";
 
 // src/Log/Colors/random.ts
 import { randomInt } from "node:crypto";
-var colors = Object.fromEntries(Object.entries(await import("./colors-I7ESALLN.js")));
-var random = (...args) => Object.values(colors)[randomInt(Object.keys(colors).length)](...args);
+var colors2 = Object.fromEntries(Object.entries(await import("./colors-FTYJQIK6.js")));
+var random = (...args) => Object.values(colors2)[randomInt(Object.keys(colors2).length)](...args);
+
+// src/Log/Colors/rgb.ts
+var rgb = (color, ...args) => {
+  const r = ("r" in color ? color.r : color[0]) ?? 0;
+  const g = ("g" in color ? color.g : color[1]) ?? 0;
+  const b = ("b" in color ? color.b : color[2]) ?? 0;
+  return `\x1B[38;2;${r};${g};${b}m${parse({ colors: false }, ...args)}\x1B[0m`;
+};
 
 // src/Log/Formatting/bold.ts
 var bold = (...args) => `\x1B[1m${parse({ colors: false }, ...args)}\x1B[22m`;
@@ -122,11 +130,20 @@ var paddedTag = (tag, length = 7) => tag.padEnd(length);
 var Logger = class _Logger {
   static _maxTagLength = 0;
   _tag;
-  _tagCenter;
-  _tagCenterPadInner;
-  _tagDevOnly;
-  _formatting;
+  _timestamps;
+  _alignment;
+  _colors;
   _showHidden;
+  _devOnly;
+  /**
+   * Creates a new Logger instance
+   *
+   * @example
+   * const { log, info, warn, error, debug } = new Logger()
+   *
+   * @example
+   * const { log, info, warn, error, debug } = new Logger('Tagged Log')
+   */
   constructor(tag, tagOpts) {
     this.debug = this.debug.bind(this);
     this.log = this.log.bind(this);
@@ -134,25 +151,30 @@ var Logger = class _Logger {
     this.warn = this.warn.bind(this);
     this.error = this.error.bind(this);
     this._tag = tag?.trim() ?? "";
-    this._tagCenter = tagOpts?.center ?? true;
-    this._tagCenterPadInner = tagOpts?.centerPadInner ?? true;
-    this._tagDevOnly = tagOpts?.devOnly ?? false;
-    this._formatting = tagOpts?.formatting ?? formatting();
+    this._timestamps = tagOpts?.timestamps ?? true;
+    this._alignment = tagOpts?.alignment ?? "center";
+    this._colors = tagOpts?.colors ?? colors();
     this._showHidden = tagOpts?.showHidden ?? false;
+    this._devOnly = tagOpts?.devOnly ?? false;
     if (this._tag) this._tag = `[ ${this._tag} ]`;
     if (this._tag && this._tag.length > _Logger._maxTagLength) _Logger._maxTagLength = this._tag.length;
   }
   _logTag() {
-    if (this._tagDevOnly === true && isDevEnv() === false) return "";
-    if (this._tagCenter) {
-      if (this._tagCenterPadInner) return this._tag ? white(`[${padCenter(this._tag.slice(1, -1), _Logger._maxTagLength - 2)}]`) : paddedTag("", _Logger._maxTagLength);
+    if (this._devOnly === true && isDevEnv() === false) return "";
+    if (this._alignment === "center") {
       return this._tag ? white(padCenter(this._tag, _Logger._maxTagLength)) : paddedTag("", _Logger._maxTagLength);
     }
-    return this._tag ? white(paddedTag(this._tag, _Logger._maxTagLength)) : paddedTag("", _Logger._maxTagLength);
+    if (this._alignment === "ceter-padded") {
+      return this._tag ? white(`[${padCenter(this._tag.slice(1, -1), _Logger._maxTagLength - 2)}]`) : paddedTag("", _Logger._maxTagLength);
+    }
+    if (this._alignment === "left") {
+      return this._tag ? white(paddedTag(this._tag, _Logger._maxTagLength)) : paddedTag("", _Logger._maxTagLength);
+    }
+    return this._tag ? white(this._tag) : "";
   }
   _msg(type, color, ...args) {
     return console[type](...filterMessage([
-      timestamp2(),
+      this._timestamps ? timestamp2() : "",
       this._logTag(),
       color(paddedTag(`[${type.toUpperCase()}]`)),
       parse({
@@ -160,20 +182,35 @@ var Logger = class _Logger {
         showHidden: type === "debug" ? true : this._showHidden,
         logType: type
       }, ...args)
-    ]).map((arg) => isString(arg) && this._formatting === false ? strip(arg) : arg));
+    ]).map((arg) => isString(arg) && this._colors === false ? strip(arg) : arg));
   }
+  /**
+   * Print a message tagged as [LOG]
+   */
   log(...args) {
     return this._msg("log", white, ...args);
   }
+  /**
+   * Print a message tagged as [INFO]
+   */
   info(...args) {
     return this._msg("info", cyan, ...args);
   }
+  /**
+   * Print a message tagged as [WARN]
+   */
   warn(...args) {
     return this._msg("warn", yellow, ...args);
   }
+  /**
+   * Print a message tagged as [ERROR]
+   */
   error(...args) {
     return this._msg("error", red, ...args);
   }
+  /**
+   * Print a message tagged as [DEBUG]
+   */
   debug(...args) {
     return isDevEnv() ? this._msg("debug", magenta, ...args) : void 0;
   }
@@ -346,10 +383,10 @@ var ConsoleLogger = class _ConsoleLogger {
   static _write(type, args) {
     const path = type === "error" ? _ConsoleLogger.stdErrPath : _ConsoleLogger.stdOutPath;
     _ConsoleLogger._console[type](...args);
-    return appendFileSync(path, `${args.map((arg) => typeof arg === "string" ? arg : inspect(arg, {
+    return appendFileSync(path, `${args.map((arg) => strip(typeof arg === "string" ? arg : inspect(arg, {
       colors: false,
       depth: 10
-    })).join(" ")}
+    }))).join(" ")}
 `, "utf8");
   }
   /**
@@ -412,6 +449,7 @@ var ConsoleLogger = class _ConsoleLogger {
 
 export {
   random,
+  rgb,
   bold,
   html,
   italic,
