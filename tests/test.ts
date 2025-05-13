@@ -1,4 +1,4 @@
-import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs } from '..'
+import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs } from '../src'
 
 /*
  * We Can import everything from the main package
@@ -89,3 +89,6 @@ lineBreak()
 lineBreak()
 untaggedlog.log('RGB Color:', rgb({ r: 255, g: 105, b: 180 }, 'this should be pink!'))
 untaggedlog.log('RGB Color:', rgb([ 0, 175, 255 ], 'this should be blue!'))
+lineBreak()
+lineBreak()
+untaggedlog.error(new Error('test'))

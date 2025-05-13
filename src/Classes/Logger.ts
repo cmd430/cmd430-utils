@@ -1,4 +1,3 @@
-import type { LogType } from '../Log/Private'
 import { grey, red, yellow, magenta, cyan, white, type ColorFN } from '../Log/Colors'
 import { strip } from '../Log/Formatting'
 import { parse, timestamp as currentTimestamp, supportsColor } from '../Log/Private'
@@ -12,6 +11,7 @@ interface LogTagOptions {
   showHidden?: boolean
   devOnly?: boolean
 }
+type LogType = 'log' | 'info' | 'warn' | 'error' | 'debug'
 
 const timestamp: () => string = () => grey(`[${currentTimestamp()}]`)
 const filterMessage: (args: any[]) => any[] = args => args.filter(a => a)
@@ -100,8 +100,7 @@ export class Logger {
       color(paddedTag(`[${type.toUpperCase()}]`)),
       parse({
         colors: true,
-        showHidden: type === 'debug' ? true : this._showHidden,
-        logType: type
+        showHidden: type === 'debug' ? true : this._showHidden
       }, ...args)
     ]).map(arg => isString(arg) && this._colors === false ? strip(arg) : arg))
   }
