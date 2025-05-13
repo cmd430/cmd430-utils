@@ -1,23 +1,17 @@
 import {
-  isArray,
-  isDate,
-  isError,
-  isObject,
-  isString,
-  isUndefined
+  isString
 } from "./chunk-JYAUZJLB.js";
 
 // src/Log/Private/parse.ts
 import { inspect } from "node:util";
 var parse = (opts, ...args) => args.map((arg) => {
-  const { colors: colors2, showHidden, logType } = opts;
-  const shouldInspect = isObject(arg) || isArray(arg) || isDate(arg) || isUndefined(arg);
-  if ((shouldInspect || showHidden) && !isString(arg)) return inspect(arg, {
+  const { colors: colors2, showHidden } = opts;
+  if (isString(arg)) return arg;
+  return inspect(arg, {
     showHidden,
     depth: null,
     colors: colors2
   });
-  return isError(arg) && logType === "error" ? arg.stack : arg;
 }).join(" ");
 
 // src/Log/Private/timestamp.ts

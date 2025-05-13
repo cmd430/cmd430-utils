@@ -8,7 +8,7 @@ import {
   timestamp,
   white,
   yellow
-} from "./chunk-RIMMHOZ2.js";
+} from "./chunk-UJJX4ZW2.js";
 import {
   isDevEnv,
   isString,
@@ -17,7 +17,7 @@ import {
 
 // src/Log/Colors/random.ts
 import { randomInt } from "node:crypto";
-var colors2 = Object.fromEntries(Object.entries(await import("./colors-YQPFHK5B.js")));
+var colors2 = Object.fromEntries(Object.entries(await import("./colors-WNWGDHSQ.js")));
 var random = (...args) => Object.values(colors2)[randomInt(Object.keys(colors2).length)](...args);
 
 // src/Log/Colors/rgb.ts
@@ -185,8 +185,7 @@ var Logger = class _Logger {
       color(paddedTag(`[${type.toUpperCase()}]`)),
       parse({
         colors: true,
-        showHidden: type === "debug" ? true : this._showHidden,
-        logType: type
+        showHidden: type === "debug" ? true : this._showHidden
       }, ...args)
     ]).map((arg) => isString(arg) && this._colors === false ? strip(arg) : arg));
   }
