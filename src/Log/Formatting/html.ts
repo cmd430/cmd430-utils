@@ -38,6 +38,14 @@ export const html: FormatFN = arg => {
         arg = arg.replaceAll(full, '</u>')
         break
       }
+      case '9': { // strikethrough
+        arg = arg.replaceAll(full, '<s>')
+        break
+      }
+      case '29': { // end strikethrough
+        arg = arg.replaceAll(full, '</s>')
+        break
+      }
       case '32': { // Green
         arg = arg.replaceAll(full, '<span style="color: rgb(139, 180, 62)">')
         break

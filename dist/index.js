@@ -8,9 +8,10 @@ import {
   italic,
   random,
   rgb,
+  strikethrough,
   strip,
   underline
-} from "./chunk-C5ZXPZSW.js";
+} from "./chunk-BBLUBEMT.js";
 import {
   cyan,
   green,
@@ -93,6 +94,7 @@ export {
   replaceTokens,
   rgb,
   rgbToHex,
+  strikethrough,
   strip,
   underline,
   wait,

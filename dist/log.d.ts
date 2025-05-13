@@ -93,6 +93,13 @@ declare const html: FormatFN;
 declare const italic: FormattingFN;
 
 /**
+ * Format text in italics
+ * @example
+ * italic('this should be italic!')
+ */
+declare const strikethrough: FormattingFN;
+
+/**
  * Strip text of console escape formatting and color codes
  * @example
  * strip('this should be plain text!')
@@ -109,4 +116,4 @@ declare const underline: FormattingFN;
 type FormattingFN = (...args: any[]) => string;
 type FormatFN = (arg: string) => string;
 
-export { type ColorFN, type FormatFN, type FormattingFN, type RGBColorFN, bold, cyan, green, grey, html, italic, magenta, random, red, rgb, strip, underline, white, yellow };
+export { type ColorFN, type FormatFN, type FormattingFN, type RGBColorFN, bold, cyan, green, grey, html, italic, magenta, random, red, rgb, strikethrough, strip, underline, white, yellow };

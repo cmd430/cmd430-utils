@@ -60,6 +60,14 @@ var html = (arg) => {
         arg = arg.replaceAll(full, "</u>");
         break;
       }
+      case "9": {
+        arg = arg.replaceAll(full, "<s>");
+        break;
+      }
+      case "29": {
+        arg = arg.replaceAll(full, "</s>");
+        break;
+      }
       case "32": {
         arg = arg.replaceAll(full, '<span style="color: rgb(139, 180, 62)">');
         break;
@@ -116,6 +124,9 @@ var html = (arg) => {
 
 // src/Log/Formatting/italic.ts
 var italic = (...args) => `\x1B[3m${parse({ colors: false }, ...args)}\x1B[23m`;
+
+// src/Log/Formatting/strikethrough.ts
+var strikethrough = (...args) => `\x1B[9m${parse({ colors: false }, ...args)}\x1B[29m`;
 
 // src/Log/Formatting/strip.ts
 var strip = (arg) => arg.replace(/\x1b[[(?);]{0,2}(;?\d)*./g, "");
@@ -458,6 +469,7 @@ export {
   bold,
   html,
   italic,
+  strikethrough,
   strip,
   underline,
   Logger,

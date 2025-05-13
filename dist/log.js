@@ -6,9 +6,10 @@ import {
   italic,
   random,
   rgb,
+  strikethrough,
   strip,
   underline
-} from "./chunk-C5ZXPZSW.js";
+} from "./chunk-BBLUBEMT.js";
 import {
   cyan,
   green,
@@ -32,6 +33,7 @@ export {
   random,
   red,
   rgb,
+  strikethrough,
   strip,
   underline,
   white,
