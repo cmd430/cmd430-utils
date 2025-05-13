@@ -1,3 +1,6 @@
+import { C as ColorFN } from './Colors-DfJAe6id.js';
+
+type LogType = 'log' | 'info' | 'warn' | 'error' | 'debug';
 type LogTagAlignment = 'left' | 'center' | 'ceter-padded' | 'right' | 'none';
 interface LogTagOptions {
     timestamps?: boolean;
@@ -6,11 +9,18 @@ interface LogTagOptions {
     showHidden?: boolean;
     devOnly?: boolean;
 }
+interface NoticeOptions {
+    type?: LogType;
+    colorFn?: ColorFN;
+    style?: 'single' | 'rounded' | 'double';
+}
+
 /**
  * Logger with timestamps, and tagged log messages
  */
 declare class Logger {
     private static _maxTagLength;
+    private static _tagColors;
     private _tag;
     private _timestamps;
     private _alignment;
@@ -49,6 +59,10 @@ declare class Logger {
      * Print a message tagged as [DEBUG]
      */
     debug(...args: Parameters<typeof console.debug>): void;
+    /**
+     * Print a notice tagged with `[options.type]` default `[INFO]`
+     */
+    notice(notice: string, options?: NoticeOptions): void;
 }
 
 /**

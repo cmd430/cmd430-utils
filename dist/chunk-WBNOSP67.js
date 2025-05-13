@@ -140,6 +140,13 @@ var filterMessage = (args) => args.filter((a) => a);
 var paddedTag = (tag, length = 7, start = false) => start ? tag.padStart(length) : tag.padEnd(length);
 var Logger = class _Logger {
   static _maxTagLength = 0;
+  static _tagColors = {
+    log: white,
+    info: cyan,
+    warn: yellow,
+    error: red,
+    debug: magenta
+  };
   _tag;
   _timestamps;
   _alignment;
@@ -156,11 +163,12 @@ var Logger = class _Logger {
    * const { log, info, warn, error, debug } = new Logger('Tagged Log')
    */
   constructor(tag, tagOpts) {
-    this.debug = this.debug.bind(this);
     this.log = this.log.bind(this);
     this.info = this.info.bind(this);
     this.warn = this.warn.bind(this);
     this.error = this.error.bind(this);
+    this.debug = this.debug.bind(this);
+    this.notice = this.notice.bind(this);
     this._tag = tag?.trim() ?? "";
     this._timestamps = tagOpts?.timestamps ?? true;
     this._alignment = tagOpts?.alignment ?? "center";
@@ -189,7 +197,8 @@ var Logger = class _Logger {
     }
     return this._alignment === "none" ? "" : paddedTag("", _Logger._maxTagLength);
   }
-  _msg(type, color, ...args) {
+  _msg(type, ...args) {
+    const color = _Logger._tagColors[type];
     return console[type](...filterMessage([
       this._timestamps ? timestamp2() : "",
       this._logTag(),
@@ -204,31 +213,69 @@ var Logger = class _Logger {
    * Print a message tagged as [LOG]
    */
   log(...args) {
-    return this._msg("log", white, ...args);
+    return this._msg("log", ...args);
   }
   /**
    * Print a message tagged as [INFO]
    */
   info(...args) {
-    return this._msg("info", cyan, ...args);
+    return this._msg("info", ...args);
   }
   /**
    * Print a message tagged as [WARN]
    */
   warn(...args) {
-    return this._msg("warn", yellow, ...args);
+    return this._msg("warn", ...args);
   }
   /**
    * Print a message tagged as [ERROR]
    */
   error(...args) {
-    return this._msg("error", red, ...args);
+    return this._msg("error", ...args);
   }
   /**
    * Print a message tagged as [DEBUG]
    */
   debug(...args) {
-    return isDevEnv() ? this._msg("debug", magenta, ...args) : void 0;
+    return isDevEnv() ? this._msg("debug", ...args) : void 0;
+  }
+  /**
+   * Print a notice tagged with `[options.type]` default `[INFO]`
+   */
+  notice(notice, options) {
+    const type = options?.type ?? "info";
+    const color = options?.colorFn ?? _Logger._tagColors[type];
+    const style = options?.style ?? "single";
+    const boxWidth = strip(notice).length + 2;
+    const boxChars = {
+      single: {
+        topLeft: "\u250C",
+        topRight: "\u2510",
+        verticle: "\u2502",
+        horizontal: "\u2500",
+        bottomLeft: "\u2514",
+        bottomRight: "\u2518"
+      },
+      rounded: {
+        topLeft: "\u256D",
+        topRight: "\u256E",
+        verticle: "\u2502",
+        horizontal: "\u2500",
+        bottomLeft: "\u2570",
+        bottomRight: "\u256F"
+      },
+      double: {
+        topLeft: "\u2554",
+        topRight: "\u2557",
+        verticle: "\u2551",
+        horizontal: "\u2550",
+        bottomLeft: "\u255A",
+        bottomRight: "\u255D"
+      }
+    };
+    this[type](`\x1B[2K${color(`${boxChars[style].topLeft}${boxChars[style].horizontal.repeat(boxWidth)}${boxChars[style].topRight}`)}`);
+    this[type](`${color(boxChars[style].verticle)} ${notice} ${color(boxChars[style].verticle)}`);
+    this[type](`\x1B[2K${color(`${boxChars[style].bottomLeft}${boxChars[style].horizontal.repeat(boxWidth)}${boxChars[style].bottomRight}`)}`);
   }
 };
 

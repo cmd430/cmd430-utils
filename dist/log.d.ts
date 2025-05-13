@@ -1,5 +1,8 @@
-export { C as ConsoleLogger, L as Log } from './ConsoleLogger-xB8eZPO5.js';
-import { R as RGBArgs } from './Colors-DnV0vRpA.js';
+export { C as ConsoleLogger, L as Log } from './ConsoleLogger-B9t-CK12.js';
+import { C as ColorFN, R as RGBColorFN } from './Colors-DfJAe6id.js';
+
+type FormattingFN = (...args: any[]) => string;
+type FormatFN = (arg: string) => string;
 
 /**
  * Color text cyan
@@ -65,9 +68,6 @@ declare const random: ColorFN;
  */
 declare const rgb: RGBColorFN;
 
-type ColorFN = (...args: any[]) => string;
-type RGBColorFN = (color: RGBArgs, ...args: any[]) => string;
-
 /**
  * Format text in bold
  * @example
@@ -113,7 +113,4 @@ declare const strip: FormatFN;
  */
 declare const underline: FormattingFN;
 
-type FormattingFN = (...args: any[]) => string;
-type FormatFN = (arg: string) => string;
-
-export { type ColorFN, type FormatFN, type FormattingFN, type RGBColorFN, bold, cyan, green, grey, html, italic, magenta, random, red, rgb, strikethrough, strip, underline, white, yellow };
+export { bold, cyan, green, grey, html, italic, magenta, random, red, rgb, strikethrough, strip, underline, white, yellow };
