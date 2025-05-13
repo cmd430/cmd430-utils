@@ -1,4 +1,4 @@
-import type { FormatFN } from '.'
+import type { FormatFN } from '../../Types'
 
 /**
  * Strip text of console escape formatting and color codes

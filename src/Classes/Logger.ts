@@ -1,17 +1,8 @@
-import { grey, red, yellow, magenta, cyan, white, type ColorFN } from '../Log/Colors'
+import { grey, red, yellow, magenta, cyan, white } from '../Log/Colors'
 import { strip } from '../Log/Formatting'
 import { parse, timestamp as currentTimestamp, supportsColor } from '../Log/Private'
+import type { LogTagAlignment, LogTagOptions, LogType, NoticeOptions } from '../Types/Log'
 import { isString, isDevEnv, padCenter } from '../Utils'
-
-type LogTagAlignment = 'left' | 'center' | 'ceter-padded' | 'right' | 'none'
-interface LogTagOptions {
-  timestamps?: boolean
-  alignment?: LogTagAlignment
-  colors?: boolean
-  showHidden?: boolean
-  devOnly?: boolean
-}
-type LogType = 'log' | 'info' | 'warn' | 'error' | 'debug'
 
 const timestamp: () => string = () => grey(`[${currentTimestamp()}]`)
 const filterMessage: (args: any[]) => any[] = args => args.filter(a => a)
@@ -23,6 +14,13 @@ const paddedTag: (tag: string, length?: number, start?: boolean) => string = (ta
 export class Logger {
 
   private static _maxTagLength = 0
+  private static _tagColors = {
+    log: white,
+    info: cyan,
+    warn: yellow,
+    error: red,
+    debug: magenta
+  }
 
   private _tag: string
   private _timestamps: boolean
@@ -42,11 +40,12 @@ export class Logger {
    */
   constructor (tag?: string, tagOpts?: LogTagOptions) {
     // Allow destructuring the methods
-    this.debug = this.debug.bind(this)
     this.log = this.log.bind(this)
     this.info = this.info.bind(this)
     this.warn = this.warn.bind(this)
     this.error = this.error.bind(this)
+    this.debug = this.debug.bind(this)
+    this.notice = this.notice.bind(this)
 
     this._tag = tag?.trim() ?? ''
     this._timestamps = tagOpts?.timestamps ?? true
@@ -92,7 +91,10 @@ export class Logger {
 
   }
 
-  private _msg (type: LogType, color: ColorFN, ...args: any[]) {
+  private _msg (type: LogType, ...args: any[]) {
+    // eslint-disable-next-line no-underscore-dangle
+    const color = Logger._tagColors[type as keyof typeof Logger._tagColors]
+
     // eslint-disable-next-line no-console
     return console[type](...filterMessage([
       this._timestamps ? timestamp() : '',
@@ -109,35 +111,77 @@ export class Logger {
    * Print a message tagged as [LOG]
    */
   public log (...args: Parameters<typeof console.log>): void {
-    return this._msg('log', white, ...args)
+    return this._msg('log', ...args)
   }
 
   /**
    * Print a message tagged as [INFO]
    */
   public info (...args: Parameters<typeof console.info>): void {
-    return this._msg('info', cyan, ...args)
+    return this._msg('info', ...args)
   }
 
   /**
    * Print a message tagged as [WARN]
    */
   public warn (...args: Parameters<typeof console.warn>): void {
-    return this._msg('warn', yellow, ...args)
+    return this._msg('warn', ...args)
   }
 
   /**
    * Print a message tagged as [ERROR]
    */
   public error (...args: Parameters<typeof console.error>): void {
-    return this._msg('error', red, ...args)
+    return this._msg('error', ...args)
   }
 
   /**
    * Print a message tagged as [DEBUG]
    */
   public debug (...args: Parameters<typeof console.debug>): void {
-    return isDevEnv() ? this._msg('debug', magenta, ...args) : undefined
+    return isDevEnv() ? this._msg('debug', ...args) : undefined
+  }
+
+
+  /**
+   * Print a notice tagged with `[options.type]` default `[INFO]`
+   */
+  public notice (notice: string, options?: NoticeOptions): void {
+    const type = options?.type ?? 'info'
+    // eslint-disable-next-line no-underscore-dangle
+    const color = options?.colorFn ?? Logger._tagColors[type as keyof typeof Logger._tagColors]
+    const style = options?.style ?? 'single'
+    const boxWidth = strip(notice).length + 2
+    const boxChars = {
+      single: {
+        topLeft: '┌',
+        topRight:'┐',
+        verticle: '│',
+        horizontal: '─',
+        bottomLeft: '└',
+        bottomRight:'┘'
+      },
+      rounded: {
+        topLeft: '╭',
+        topRight:'╮',
+        verticle: '│',
+        horizontal: '─',
+        bottomLeft: '╰',
+        bottomRight:'╯'
+      },
+      double: {
+        topLeft: '╔',
+        topRight:'╗',
+        verticle: '║',
+        horizontal: '═',
+        bottomLeft: '╚',
+        bottomRight:'╝'
+      }
+    }
+
+    this[type](`\x1b[2K${color(`${boxChars[style as keyof typeof boxChars].topLeft}${boxChars[style as keyof typeof boxChars].horizontal.repeat(boxWidth)}${boxChars[style as keyof typeof boxChars].topRight}`)}`)
+    this[type](`${color(boxChars[style as keyof typeof boxChars].verticle)} ${notice} ${color(boxChars[style as keyof typeof boxChars].verticle)}`)
+    this[type](`\x1b[2K${color(`${boxChars[style as keyof typeof boxChars].bottomLeft}${boxChars[style as keyof typeof boxChars].horizontal.repeat(boxWidth)}${boxChars[style as keyof typeof boxChars].bottomRight}`)}`)
   }
 
 }

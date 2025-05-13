@@ -1,4 +1,4 @@
-import type { RGBColorFN } from '.'
+import type { RGBColorFN } from '../../Types'
 import { parse } from '../Private'
 
 /**

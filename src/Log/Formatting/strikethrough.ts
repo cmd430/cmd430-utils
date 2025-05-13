@@ -1,4 +1,4 @@
-import type { FormattingFN } from '.'
+import type { FormattingFN } from '../../Types'
 import { parse } from '../Private'
 
 /**

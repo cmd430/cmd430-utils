@@ -1,4 +1,4 @@
-import type { ColorFN } from '.'
+import type { ColorFN } from '../../Types'
 import { randomInt } from 'node:crypto'
 
 const colors: Colors = Object.fromEntries(Object.entries(await import('./colors')))

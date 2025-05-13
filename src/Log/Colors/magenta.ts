@@ -1,4 +1,4 @@
-import type { ColorFN } from '.'
+import type { ColorFN } from '../../Types'
 import { parse } from '../Private'
 
 /**

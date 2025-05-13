@@ -1,4 +1,4 @@
-import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs } from '../src'
+import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs, red } from '../src'
 
 /*
  * We Can import everything from the main package
@@ -24,48 +24,48 @@ verylongtaglog.log('')
 lineBreak()
 
 for (const log of Object.keys(untaggedlog)) {
-  if (log.startsWith('_')) continue
-  untaggedlog[log as keyof Log](random({
+  if (log.startsWith('_') || log === 'notice') continue
+  untaggedlog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
   }, 'this a date', new Date()))
 }
 lineBreak()
 for (const log of Object.keys(uncoloredUntaggedlog)) {
-  if (log.startsWith('_')) continue
-  uncoloredUntaggedlog[log as keyof Log](random({
+  if (log.startsWith('_') || log === 'notice') continue
+  uncoloredUntaggedlog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
   }, 'this a date', new Date()))
 }
 lineBreak()
 for (const log of Object.keys(taggedLog)) {
-  if (log.startsWith('_')) continue
-  taggedLog[log as keyof Log](random({
+  if (log.startsWith('_') || log === 'notice') continue
+  taggedLog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
   }, 'this a date', new Date()))
 }
 lineBreak()
 for (const log of Object.keys(uncoloredTaggedlog)) {
-  if (log.startsWith('_')) continue
-  uncoloredTaggedlog[log as keyof Log](random({
+  if (log.startsWith('_') || log === 'notice') continue
+  uncoloredTaggedlog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
   }, 'this a date', new Date()))
 }
 lineBreak()
 for (const log of Object.keys(centeredPadOuterTaggedLog)) {
-  if (log.startsWith('_')) continue
-  centeredPadOuterTaggedLog[log as keyof Log]({
+  if (log.startsWith('_') || log === 'notice') continue
+  centeredPadOuterTaggedLog[log as 'log']({
     this: 'is',
     an: isWhat({})
   }, 'this a date', new Date())
 }
 lineBreak()
 for (const log of Object.keys(uncenteredTaggedLog)) {
-  if (log.startsWith('_')) continue
-  uncenteredTaggedLog[log as keyof Log]({
+  if (log.startsWith('_') || log === 'notice') continue
+  uncenteredTaggedLog[log as 'log']({
     this: 'is',
     an: isWhat({})
   }, 'this a date', new Date())
@@ -90,5 +90,35 @@ lineBreak()
 untaggedlog.log('RGB Color:', rgb({ r: 255, g: 105, b: 180 }, 'this should be pink!'))
 untaggedlog.log('RGB Color:', rgb([ 0, 175, 255 ], 'this should be blue!'))
 lineBreak()
+
+untaggedlog.notice(`${red('‼')} THIS IS A SINGLE STYLED NOTICE ${red('‼')}`, {
+  style: 'single'
+})
+untaggedlog.notice(`${red('‼')} THIS IS A ROUNDED STYLED NOTICE ${red('‼')}`, {
+  style: 'rounded'
+})
+untaggedlog.notice(`${red('‼')} THIS IS A DOUBLE STYLED NOTICE ${red('‼')}`, {
+  style: 'double'
+})
+
+untaggedlog.notice(`${red('‼')} THIS IS A CUSTOM COLOR NOTICE ${red('‼')}`, {
+  colorFn: (...args) => rgb({ r: 219, g: 104, b: 40 }, ...args)
+})
+
+untaggedlog.notice(`${red('‼')} THIS IS A LOG NOTICE ${red('‼')}`, {
+  type: 'log'
+})
+untaggedlog.notice(`${red('‼')} THIS IS AN INFO NOTICE ${red('‼')}`, {
+  type: 'info'
+})
+untaggedlog.notice(`${red('‼')} THIS IS A WARN NOTICE ${red('‼')}`, {
+  type: 'warn'
+})
+untaggedlog.notice(`${red('‼')} THIS IS AN ERROR NOTICE ${red('‼')}`, {
+  type: 'error'
+})
+untaggedlog.notice(`${red('‼')} THIS IS A DEBUG NOTICE ${red('‼')}`, {
+  type: 'debug'
+})
 lineBreak()
 untaggedlog.error(new Error('test'))

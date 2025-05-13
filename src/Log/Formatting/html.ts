@@ -1,4 +1,4 @@
-import type { FormatFN } from '.'
+import type { FormatFN } from '../../Types'
 
 /**
  * Replace text console escape codes with HTML
