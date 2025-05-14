@@ -44,16 +44,7 @@ export class CircularBuffer <T extends string | boolean | number> {
    * Returns the item located at the specified index. oldest first.
    */
   public at (index: number): T | undefined {
-    const isPositive = 1 / (index * 0) === 1 / 0
-    const absIndex = Math.abs(index)
-
-    if (absIndex >= this._maxLength) return undefined
-
-    // from start (oldest first)
-    if (isPositive) return this._buffer[(this._pointer + absIndex) % this._maxLength]
-
-    // from end (newest first)
-    return this._buffer[((this._pointer + (this._maxLength - 1)) - absIndex) % this._maxLength]
+    return this.toArray().at(index)
   }
 
   /**
