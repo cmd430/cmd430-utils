@@ -1,5 +1,10 @@
 import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs, red } from '../src'
 
+const ignoreMethods = [
+  'notice',
+  'toggleDebug'
+]
+
 /*
  * We Can import everything from the main package
  *   import { Log, random, isWhat } from './index.js'
@@ -22,10 +27,15 @@ const uncenteredTaggedLog = new Log('Example Left Aligned Tag', { alignment: 'le
 const lineBreak = () => console.log()
 
 verylongtaglog.log('')
+verylongtaglog.debug('1')
+verylongtaglog.toggleDebug()
+verylongtaglog.debug('2')
+verylongtaglog.toggleDebug()
+verylongtaglog.debug('3')
 lineBreak()
 
 for (const log of Object.keys(untaggedlog)) {
-  if (log.startsWith('_') || log === 'notice') continue
+  if (log.startsWith('_') || ignoreMethods.includes(log)) continue
   untaggedlog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
@@ -33,7 +43,7 @@ for (const log of Object.keys(untaggedlog)) {
 }
 lineBreak()
 for (const log of Object.keys(uncoloredUntaggedlog)) {
-  if (log.startsWith('_') || log === 'notice') continue
+  if (log.startsWith('_') || ignoreMethods.includes(log)) continue
   uncoloredUntaggedlog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
@@ -41,7 +51,7 @@ for (const log of Object.keys(uncoloredUntaggedlog)) {
 }
 lineBreak()
 for (const log of Object.keys(taggedLog)) {
-  if (log.startsWith('_') || log === 'notice') continue
+  if (log.startsWith('_') || ignoreMethods.includes(log)) continue
   taggedLog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
@@ -49,7 +59,7 @@ for (const log of Object.keys(taggedLog)) {
 }
 lineBreak()
 for (const log of Object.keys(uncoloredTaggedlog)) {
-  if (log.startsWith('_') || log === 'notice') continue
+  if (log.startsWith('_') || ignoreMethods.includes(log)) continue
   uncoloredTaggedlog[log as 'log'](random({
     this: 'is',
     an: isWhat({})
@@ -57,7 +67,7 @@ for (const log of Object.keys(uncoloredTaggedlog)) {
 }
 lineBreak()
 for (const log of Object.keys(centeredPadOuterTaggedLog)) {
-  if (log.startsWith('_') || log === 'notice') continue
+  if (log.startsWith('_') || ignoreMethods.includes(log)) continue
   centeredPadOuterTaggedLog[log as 'log']({
     this: 'is',
     an: isWhat({})
@@ -65,7 +75,7 @@ for (const log of Object.keys(centeredPadOuterTaggedLog)) {
 }
 lineBreak()
 for (const log of Object.keys(uncenteredTaggedLog)) {
-  if (log.startsWith('_') || log === 'notice') continue
+  if (log.startsWith('_') || ignoreMethods.includes(log)) continue
   uncenteredTaggedLog[log as 'log']({
     this: 'is',
     an: isWhat({})
