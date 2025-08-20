@@ -8,7 +8,7 @@ export interface LogTagOptions {
   alignment?: LogTagAlignment
   colors?: boolean
   showHidden?: boolean
-  devOnly?: boolean
+  showDebug?: boolean
 }
 
 export interface NoticeOptions {

@@ -27,7 +27,7 @@ export class Logger {
   private _alignment: LogTagAlignment
   private _colors: boolean
   private _showHidden: boolean
-  private _devOnly: boolean
+  private _showDebug: boolean
 
   /**
    * Creates a new Logger instance
@@ -38,7 +38,7 @@ export class Logger {
    * @example
    * const { log, info, warn, error, debug } = new Logger('Tagged Log')
    */
-  constructor (tag?: string, tagOpts?: LogTagOptions) {
+  constructor (tag?: null | string, tagOpts?: LogTagOptions) {
     // Allow destructuring the methods
     this.log = this.log.bind(this)
     this.info = this.info.bind(this)
@@ -52,7 +52,7 @@ export class Logger {
     this._alignment = tagOpts?.alignment ?? 'center'
     this._colors = tagOpts?.colors ?? supportsColor()
     this._showHidden = tagOpts?.showHidden ?? false
-    this._devOnly = tagOpts?.devOnly ?? false
+    this._showDebug = tagOpts?.showDebug ?? isDevEnv()
 
     if (this._tag) this._tag = `[ ${this._tag} ]`
     // eslint-disable-next-line no-underscore-dangle
@@ -60,8 +60,6 @@ export class Logger {
   }
 
   private _logTag () {
-    if (this._devOnly === true && isDevEnv() === false) return ''
-
     if (this._tag && this._alignment === 'left') {
       // eslint-disable-next-line no-underscore-dangle
       return white(paddedTag(this._tag, Logger._maxTagLength))
@@ -88,7 +86,6 @@ export class Logger {
 
     // eslint-disable-next-line no-underscore-dangle
     return this._alignment === 'none' ? '' : paddedTag('', Logger._maxTagLength)
-
   }
 
   private _msg (type: LogType, ...args: any[]) {
@@ -139,7 +136,9 @@ export class Logger {
    * Print a message tagged as [DEBUG]
    */
   public debug (...args: Parameters<typeof console.debug>): void {
-    return isDevEnv() ? this._msg('debug', ...args) : undefined
+    if (this._showDebug === false) return
+
+    return this._msg('debug', ...args)
   }
 
 
