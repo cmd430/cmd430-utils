@@ -12,7 +12,7 @@ import { Log, random, rgb, isWhat, wait, isDevEnv, calculate, parseArgs, red } f
 
 const verylongtaglog = new Log('Very long tag to show the alignments')
 const untaggedlog = new Log()
-const uncoloredUntaggedlog = new Log('', { alignment: 'none', colors: false })
+const uncoloredUntaggedlog = new Log(null, { alignment: 'none', colors: false })
 const taggedLog = new Log('Example Padded Aligned Tag', { alignment: 'ceter-padded' })
 const uncoloredTaggedlog = new Log('Example Right Aligned Tag', { alignment: 'right', colors: false })
 const centeredPadOuterTaggedLog = new Log('Example Center Aligned Tag', { alignment: 'center' })
