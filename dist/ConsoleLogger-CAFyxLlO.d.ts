@@ -63,6 +63,11 @@ declare class Logger {
      * Print a notice tagged with `[options.type]` default `[INFO]`
      */
     notice(notice: string, options?: NoticeOptions): void;
+    /**
+     * Toggle showing debug logs
+     * Optionally set value manually by setting [enabled] param
+     */
+    toggleDebug(enabled?: boolean): boolean;
 }
 
 /**

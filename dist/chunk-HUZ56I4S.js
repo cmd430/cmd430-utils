@@ -169,6 +169,7 @@ var Logger = class _Logger {
     this.error = this.error.bind(this);
     this.debug = this.debug.bind(this);
     this.notice = this.notice.bind(this);
+    this.toggleDebug = this.toggleDebug.bind(this);
     this._tag = tag?.trim() ?? "";
     this._timestamps = tagOpts?.timestamps ?? true;
     this._alignment = tagOpts?.alignment ?? "center";
@@ -276,6 +277,18 @@ var Logger = class _Logger {
     this[type](`\x1B[2K${color(`${boxChars[style].topLeft}${boxChars[style].horizontal.repeat(boxWidth)}${boxChars[style].topRight}`)}`);
     this[type](`${color(boxChars[style].verticle)} ${notice} ${color(boxChars[style].verticle)}`);
     this[type](`\x1B[2K${color(`${boxChars[style].bottomLeft}${boxChars[style].horizontal.repeat(boxWidth)}${boxChars[style].bottomRight}`)}`);
+  }
+  /**
+   * Toggle showing debug logs
+   * Optionally set value manually by setting [enabled] param
+   */
+  toggleDebug(enabled) {
+    if (enabled != null) {
+      this._showDebug = enabled;
+    } else {
+      this._showDebug = !this._showDebug;
+    }
+    return this._showDebug;
   }
 };
 
