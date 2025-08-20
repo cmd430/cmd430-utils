@@ -1,4 +1,4 @@
-export { C as ConsoleLogger, L as Log } from './ConsoleLogger-B9t-CK12.js';
+export { C as ConsoleLogger, L as Log } from './ConsoleLogger-jXZJQYCc.js';
 import { C as ColorFN, R as RGBColorFN } from './Colors-DfJAe6id.js';
 
 type FormattingFN = (...args: any[]) => string;

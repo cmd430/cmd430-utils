@@ -152,7 +152,7 @@ var Logger = class _Logger {
   _alignment;
   _colors;
   _showHidden;
-  _devOnly;
+  _showDebug;
   /**
    * Creates a new Logger instance
    *
@@ -174,12 +174,11 @@ var Logger = class _Logger {
     this._alignment = tagOpts?.alignment ?? "center";
     this._colors = tagOpts?.colors ?? colors();
     this._showHidden = tagOpts?.showHidden ?? false;
-    this._devOnly = tagOpts?.devOnly ?? false;
+    this._showDebug = tagOpts?.showDebug ?? isDevEnv();
     if (this._tag) this._tag = `[ ${this._tag} ]`;
     if (this._tag && this._tag.length > _Logger._maxTagLength) _Logger._maxTagLength = this._tag.length;
   }
   _logTag() {
-    if (this._devOnly === true && isDevEnv() === false) return "";
     if (this._tag && this._alignment === "left") {
       return white(paddedTag(this._tag, _Logger._maxTagLength));
     }
@@ -237,7 +236,8 @@ var Logger = class _Logger {
    * Print a message tagged as [DEBUG]
    */
   debug(...args) {
-    return isDevEnv() ? this._msg("debug", ...args) : void 0;
+    if (this._showDebug === false) return;
+    return this._msg("debug", ...args);
   }
   /**
    * Print a notice tagged with `[options.type]` default `[INFO]`

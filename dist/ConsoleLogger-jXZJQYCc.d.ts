@@ -7,7 +7,7 @@ interface LogTagOptions {
     alignment?: LogTagAlignment;
     colors?: boolean;
     showHidden?: boolean;
-    devOnly?: boolean;
+    showDebug?: boolean;
 }
 interface NoticeOptions {
     type?: LogType;
@@ -26,7 +26,7 @@ declare class Logger {
     private _alignment;
     private _colors;
     private _showHidden;
-    private _devOnly;
+    private _showDebug;
     /**
      * Creates a new Logger instance
      *
@@ -36,7 +36,7 @@ declare class Logger {
      * @example
      * const { log, info, warn, error, debug } = new Logger('Tagged Log')
      */
-    constructor(tag?: string, tagOpts?: LogTagOptions);
+    constructor(tag?: null | string, tagOpts?: LogTagOptions);
     private _logTag;
     private _msg;
     /**
