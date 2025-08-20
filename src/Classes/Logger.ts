@@ -39,7 +39,7 @@ export class Logger {
    * const { log, info, warn, error, debug } = new Logger('Tagged Log')
    */
   constructor (tag?: null | string, tagOpts?: LogTagOptions) {
-    // Allow destructuring the methods
+    // Allow destructuring the log methods
     this.log = this.log.bind(this)
     this.info = this.info.bind(this)
     this.warn = this.warn.bind(this)
@@ -47,6 +47,10 @@ export class Logger {
     this.debug = this.debug.bind(this)
     this.notice = this.notice.bind(this)
 
+    // Allow destructuring helper methods
+    this.toggleDebug = this.toggleDebug.bind(this)
+
+    // internals
     this._tag = tag?.trim() ?? ''
     this._timestamps = tagOpts?.timestamps ?? true
     this._alignment = tagOpts?.alignment ?? 'center'
@@ -141,7 +145,6 @@ export class Logger {
     return this._msg('debug', ...args)
   }
 
-
   /**
    * Print a notice tagged with `[options.type]` default `[INFO]`
    */
@@ -181,6 +184,20 @@ export class Logger {
     this[type](`\x1b[2K${color(`${boxChars[style as keyof typeof boxChars].topLeft}${boxChars[style as keyof typeof boxChars].horizontal.repeat(boxWidth)}${boxChars[style as keyof typeof boxChars].topRight}`)}`)
     this[type](`${color(boxChars[style as keyof typeof boxChars].verticle)} ${notice} ${color(boxChars[style as keyof typeof boxChars].verticle)}`)
     this[type](`\x1b[2K${color(`${boxChars[style as keyof typeof boxChars].bottomLeft}${boxChars[style as keyof typeof boxChars].horizontal.repeat(boxWidth)}${boxChars[style as keyof typeof boxChars].bottomRight}`)}`)
+  }
+
+  /**
+   * Toggle showing debug logs
+   * Optionally set value manually by setting [enabled] param
+   */
+  public toggleDebug (enabled?: boolean): boolean {
+    if (enabled != null) {
+      this._showDebug = enabled
+    } else {
+      this._showDebug = !this._showDebug
+    }
+
+    return this._showDebug
   }
 
 }
